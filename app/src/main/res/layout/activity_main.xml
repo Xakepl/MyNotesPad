@@ -9,10 +9,10 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textV"
         android:layout_width="344dp"
         android:layout_height="117dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="76dp"
         android:breakStrategy="high_quality"
         android:fontFamily="sans-serif-black"
         android:text="Сохранённые заметки"
@@ -20,7 +20,7 @@
         android:textColor="#CECCCC"
         android:textSize="38sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textV">
 
         <ImageView
             android:id="@+id/imageView"

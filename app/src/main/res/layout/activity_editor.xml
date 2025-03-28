@@ -9,20 +9,32 @@
     tools:context=".editor">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="396dp"
-        android:layout_height="94dp"
+        android:id="@+id/toolbar"
+        android:layout_width="411dp"
+        android:layout_height="46dp"
         android:scaleType="centerInside"
-        android:scaleX="1.15"
-        android:scaleY="1.15"
+        android:scaleX="2.25"
+        android:scaleY="1.28"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/lgthgray"
-        tools:layout_editor_absoluteY="45dp" />
+        tools:layout_editor_absoluteY="720dp" />
+
+    <ImageView
+        android:id="@+id/titleView"
+        android:layout_width="407dp"
+        android:layout_height="82dp"
+        android:scaleType="centerInside"
+        android:scaleX="1.28"
+        android:scaleY="1.15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/lgthgray"
+        tools:layout_editor_absoluteY="53dp" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/titleText"
         style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
         android:layout_width="348dp"
         android:layout_height="51dp"
@@ -33,36 +45,53 @@
         android:singleLine="false"
         android:textColorHint="#FFFFFF"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/titleView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        tools:layout_editor_absoluteY="63dp" />
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="@+id/titleView"
+        app:layout_constraintTop_toTopOf="@+id/titleView"
+        app:layout_constraintVertical_bias="0.419" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="412dp"
-        android:layout_height="546dp"
-        android:layout_marginTop="24dp"
+        android:id="@+id/textV"
+        android:layout_width="385dp"
+        android:layout_height="518dp"
+        android:layout_marginTop="32dp"
         android:scaleX="1.25"
         android:scaleY="1.12"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/gray" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/MultiLineText"
         style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
-        android:layout_width="353dp"
-        android:layout_height="527dp"
+        android:layout_width="334dp"
+        android:layout_height="506dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintBottom_toBottomOf="@+id/textV"
+        app:layout_constraintEnd_toEndOf="@+id/textV"
+        app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintTop_toTopOf="@+id/textV"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:tint="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        tools:layout_editor_absoluteY="727dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
