@@ -13,9 +13,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -30,6 +34,8 @@ import java.time.*;
 
 import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
@@ -97,6 +103,43 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         });
     }
 
+//    public class Adapter extends BaseAdapter{
+//        private ArrayList<Projects> arrayMyNotes;
+//
+//        Adapter(Context context, ArrayList<Projects> arr){
+//            setArrayMyData(arr);
+//        }
+//
+//        public ArrayList<Projects> getArrayMyData() {
+//            return arrayMyNotes;
+//        }
+//
+//        public void setArrayMyData(ArrayList<Projects> arrMyNotes) {
+//            this.arrayMyNotes = arrMyNotes;
+//        }
+//        public int getCount () {
+//            return arrayMyNotes.size();
+//        }
+//
+//        public Object getItem (int position) {
+//
+//            return position;
+//        }
+//
+//        public long getItemId (int position) {
+//            Projects md = arrayMyNotes.get(position);
+//            if (md != null) {
+//                return md.getId();
+//            }
+//            return 0;
+//        }
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//
+//            return convertView;
+//        }
+//
+//
+//    }
 
 
 }
