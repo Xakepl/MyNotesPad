@@ -43,11 +43,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     FloatingActionButton create;
     ProjectsDB mDBConnector;
     Projects md;
-//    Context mContext;
-//    ListView mListView;
-//    SimpleCursorAdapter scAdapter;
-//    Cursor cursor;
-//    myListAdapter myAdapter;
+    ListView mListView;
+    SimpleCursorAdapter scAdapter;
+    Cursor cursor;
+    Adapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         String strDate = sdf.format(c.getTime());
         Log.d("Date","DATE : " + strDate);
 //        mContext = this;
-//        mDBConnector = new ProjectsDB(this);
-//        mListView=(ListView)findViewById(R.id.list);
-//        myAdapter=new myListAdapter(mContext,mDBConnector.selectAll());
-//        mListView.setAdapter(myAdapter);
-//        registerForContextMenu(mListView);
+        mDBConnector = new ProjectsDB(this);
+        mListView=(ListView)findViewById(R.id.list);
+        myAdapter = new Adapter(getApplicationContext(), mDBConnector.selectAll());
+        mListView.setAdapter(myAdapter);
+        registerForContextMenu(mListView);
 
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
@@ -103,43 +102,43 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         });
     }
 
-//    public class Adapter extends BaseAdapter{
-//        private ArrayList<Projects> arrayMyNotes;
-//
-//        Adapter(Context context, ArrayList<Projects> arr){
-//            setArrayMyData(arr);
-//        }
-//
-//        public ArrayList<Projects> getArrayMyData() {
-//            return arrayMyNotes;
-//        }
-//
-//        public void setArrayMyData(ArrayList<Projects> arrMyNotes) {
-//            this.arrayMyNotes = arrMyNotes;
-//        }
-//        public int getCount () {
-//            return arrayMyNotes.size();
-//        }
-//
-//        public Object getItem (int position) {
-//
-//            return position;
-//        }
-//
-//        public long getItemId (int position) {
-//            Projects md = arrayMyNotes.get(position);
-//            if (md != null) {
-//                return md.getId();
-//            }
-//            return 0;
-//        }
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//
-//            return convertView;
-//        }
-//
-//
-//    }
+    public class Adapter extends BaseAdapter{
+        private ArrayList<Projects> arrayMyNotes;
+
+        Adapter(Context context, ArrayList<Projects> arr){
+            setArrayMyData(arr);
+        }
+
+        public ArrayList<Projects> getArrayMyData() {
+            return arrayMyNotes;
+        }
+
+        public void setArrayMyData(ArrayList<Projects> arrMyNotes) {
+            this.arrayMyNotes = arrMyNotes;
+        }
+        public int getCount () {
+            return arrayMyNotes.size();
+        }
+
+        public Object getItem (int position) {
+
+            return position;
+        }
+
+        public long getItemId (int position) {
+            Projects md = arrayMyNotes.get(position);
+            if (md != null) {
+                return md.getId();
+            }
+            return 0;
+        }
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            return convertView;
+        }
+
+
+    }
 
 
 }
