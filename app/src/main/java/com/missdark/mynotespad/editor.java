@@ -56,8 +56,7 @@ public class editor extends AppCompatActivity implements Serializable {
                 try {
                 strTitle = strTitle + "\n";
                 if(strTitle != null && strText != null) {
-                    fos.write(strTitle.getBytes());
-                    fos.write(strText.getBytes());
+                    fos.write((strTitle + "\n" + strText).getBytes());
                 }
                 Toast.makeText(editor.this, "Файл успешно сохранён", Toast.LENGTH_SHORT);
                 } catch (IOException e) {

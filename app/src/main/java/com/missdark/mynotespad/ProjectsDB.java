@@ -23,7 +23,7 @@ public class ProjectsDB{
         OpenHelperDB mOpenHelper = new OpenHelperDB(context);
         mDataBase = mOpenHelper.getWritableDatabase();
     }
-    public long insert(String name,long date, String path){
+    public long insert(String name, String date, String path){
         ContentValues cv=new ContentValues();
         cv.put(COLUMN_NAME, name);
         cv.put(COLUMN_DATE, date);
@@ -47,7 +47,7 @@ public class ProjectsDB{
         Cursor mCursor = mDataBase.query(TABLE_NAME, null, COLUMN_ID + " = ?", new String[]{String.valueOf(id)}, null, null, null);
         mCursor.moveToFirst();
         String name = mCursor.getString(NUM_COLUMN_NAME);
-        long date = mCursor.getLong(NUM_COLUMN_DATE);
+        String date = mCursor.getString(NUM_COLUMN_DATE);
         String path = mCursor.getString(NUM_COLUMN_PATH);
         return new Projects(id, name, date, path);
     }
@@ -59,7 +59,7 @@ public class ProjectsDB{
             do {
                 long id = mCursor.getLong(NUM_COLUMN_ID);
                 String Name = mCursor.getString(NUM_COLUMN_NAME);
-                long Date = mCursor.getLong(NUM_COLUMN_DATE);
+                String Date = mCursor.getString(NUM_COLUMN_DATE);
                 String Path = mCursor.getString(NUM_COLUMN_PATH);
                 arr.add(new Projects(id, Name, Date, Path));
             } while (mCursor.moveToNext());

@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 intent.putExtra("FILE", file);
                                 startActivity(intent);
                                 new Thread(() -> {
-                                    mDBConnector.insert(inputText, Long.parseLong(strDate), (String)file.getPath());
+                                    mDBConnector.insert(inputText, strDate, (String)file.getPath());
 
                                 }).start();
                             }
