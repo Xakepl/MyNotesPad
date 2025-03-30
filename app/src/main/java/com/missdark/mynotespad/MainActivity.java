@@ -39,12 +39,10 @@ import java.util.Base64;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
-
     FloatingActionButton create;
     ProjectsDB mDBConnector;
     Projects md;
     ListView mListView;
-    SimpleCursorAdapter scAdapter;
     Cursor cursor;
     Adapter myAdapter;
 
@@ -58,11 +56,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Log.d("Date","DATE : " + strDate);
 //        mContext = this;
         mDBConnector = new ProjectsDB(this);
-        mListView=(ListView)findViewById(R.id.list);
-        myAdapter = new Adapter(getApplicationContext(), mDBConnector.selectAll());
-        mListView.setAdapter(myAdapter);
-        registerForContextMenu(mListView);
-
+//        mListView = findViewById(R.id.list);
+// !!!!!!!!!!!!!!!!!=========== ВНИМАНИЕ, ИСПОЛЬЗОВАТЬ В СЛУЧАЕ ОЧИСТКИ =====================!!!!!!!!!!!!!!!!!
+//        mDBConnector.deleteAll();
+// !=========================================================================================================!
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
             // Создаем EditText
@@ -80,14 +77,15 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         public void onClick(DialogInterface dialog, int which) {
                             String inputText = inputEditText.getText().toString();
                             if (!inputText.isEmpty()) {
-                               Intent intent = new Intent(MainActivity.this, editor.class);
-                                File file = new File(getFilesDir(), (String)inputText +".txt");
+                                Intent intent = new Intent(MainActivity.this, editor.class);
+                                File file = new File(getFilesDir(), (String) inputText + ".txt");
+                                mDBConnector.insert(inputText, strDate, (String)file.getPath());
+//                                mDBConnector.update(md);
                                 intent.putExtra("FILE", file);
                                 startActivity(intent);
-                                new Thread(() -> {
-                                    mDBConnector.insert(inputText, strDate, (String)file.getPath());
-
-                                }).start();
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT);
                             }
                         }
                     })
@@ -104,41 +102,21 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     public class Adapter extends BaseAdapter{
         private ArrayList<Projects> arrayMyNotes;
-
-        Adapter(Context context, ArrayList<Projects> arr){
-            setArrayMyData(arr);
-        }
-
-        public ArrayList<Projects> getArrayMyData() {
-            return arrayMyNotes;
-        }
-
-        public void setArrayMyData(ArrayList<Projects> arrMyNotes) {
-            this.arrayMyNotes = arrMyNotes;
-        }
-        public int getCount () {
-            return arrayMyNotes.size();
-        }
-
-        public Object getItem (int position) {
-
-            return position;
-        }
-
+        Adapter(Context context, ArrayList<Projects> arr){setArrayMyData(arr);}
+        public ArrayList<Projects> getArrayMyData() {return arrayMyNotes;}
+        public void setArrayMyData(ArrayList<Projects> arrMyNotes) {this.arrayMyNotes = arrMyNotes;}
+        public int getCount () {return arrayMyNotes.size();}
+        public Object getItem (int position) { return position;}
         public long getItemId (int position) {
             Projects md = arrayMyNotes.get(position);
-            if (md != null) {
-                return md.getId();
-            }
+            if (md != null) {return md.getId();}
             return 0;
         }
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            return convertView;
-        }
-
+        public View getView(int position, View convertView, ViewGroup parent) {return convertView;}
 
     }
+
+
 
 
 }

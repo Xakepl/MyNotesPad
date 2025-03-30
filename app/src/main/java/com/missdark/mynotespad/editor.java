@@ -1,6 +1,7 @@
 package com.missdark.mynotespad;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,9 @@ public class editor extends AppCompatActivity implements Serializable {
     String strTitle;
     EditText text;
     ImageView save;
-    String strText;
+    ImageView back;
 
+    String strText;
     File file;
 
     @Override
@@ -57,15 +59,22 @@ public class editor extends AppCompatActivity implements Serializable {
                 strTitle = strTitle + "\n";
                 if(strTitle != null && strText != null) {
                     fos.write((strTitle + "\n" + strText).getBytes());
+                    Toast.makeText(editor.this, "Файл успешно сохранён", Toast.LENGTH_SHORT);
                 }
-                Toast.makeText(editor.this, "Файл успешно сохранён", Toast.LENGTH_SHORT);
                 } catch (IOException e) {
                     Toast.makeText(editor.this, "Ошибка сохранения", Toast.LENGTH_SHORT);
                     throw new RuntimeException(e);
                 }
             }
         });
-
+        back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(editor.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
         //FileOnputStream fos = new FileInputStream();
 
 
