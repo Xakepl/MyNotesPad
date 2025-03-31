@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 // !!!!!!!!!!!!!!!!!=========== ВНИМАНИЕ, ИСПОЛЬЗОВАТЬ В СЛУЧАЕ ОЧИСТКИ =====================!!!!!!!!!!!!!!!!!
 //        mDBConnector.deleteAll();
 // !=========================================================================================================!
+        if(mDBConnector.selectAll() != null)
+            myAdapter.setArrayMyData(mDBConnector.selectAll());
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
             // Создаем EditText
