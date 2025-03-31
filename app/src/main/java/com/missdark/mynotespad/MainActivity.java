@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Log.d("Date","DATE : " + strDate);
 //        mContext = this;
         mDBConnector = new ProjectsDB(this);
-//        mListView = findViewById(R.id.list);
+        mListView = findViewById(R.id.list);
 // !!!!!!!!!!!!!!!!!=========== ВНИМАНИЕ, ИСПОЛЬЗОВАТЬ В СЛУЧАЕ ОЧИСТКИ =====================!!!!!!!!!!!!!!!!!
 //        mDBConnector.deleteAll();
 // !=========================================================================================================!
@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 Intent intent = new Intent(MainActivity.this, editor.class);
                                 File file = new File(getFilesDir(), (String) inputText + ".txt");
                                 mDBConnector.insert(inputText, strDate, (String)file.getPath());
+                                myAdapter.setArrayMyData(mDBConnector.selectAll());
+                                mListView.setAdapter(myAdapter);
 //                                mDBConnector.update(md);
                                 intent.putExtra("FILE", file);
                                 startActivity(intent);
