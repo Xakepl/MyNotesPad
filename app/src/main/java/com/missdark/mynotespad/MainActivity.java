@@ -12,10 +12,12 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     Projects md;
     ListView mListView;
     Cursor cursor;
-    Adapter myAdapter;
+    CursorAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +58,21 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Log.d("Date","DATE : " + strDate);
 //        mContext = this;
         mDBConnector = new ProjectsDB(this);
-        mListView = findViewById(R.id.list);
+        mListView = (ListView) findViewById(R.id.list);
+        myAdapter = new CursorAdapter(this, cursor) {
+            @Override
+            public View newView(Context context, Cursor cursor, ViewGroup parent) {
+                return null;
+            }
+            @Override
+            public void bindView(View view, Context context, Cursor cursor) { bindView(mListView, getApplicationContext(), cursor);}
+        };
 // !!!!!!!!!!!!!!!!!=========== ВНИМАНИЕ, ИСПОЛЬЗОВАТЬ В СЛУЧАЕ ОЧИСТКИ =====================!!!!!!!!!!!!!!!!!
-//        mDBConnector.deleteAll();
+//        mDBConnector.deleteAll();n
 // !=========================================================================================================!
-        if(mDBConnector.selectAll() != null)
-            myAdapter.setArrayMyData(mDBConnector.selectAll());
+//       Log.d("БАЗА", mDBConnector.selectAll());
+        mListView.setAdapter(myAdapter);
+        registerForContextMenu(mListView);
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
             // Создаем EditText
@@ -82,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 Intent intent = new Intent(MainActivity.this, editor.class);
                                 File file = new File(getFilesDir(), (String) inputText + ".txt");
                                 mDBConnector.insert(inputText, strDate, (String)file.getPath());
-                                myAdapter.setArrayMyData(mDBConnector.selectAll());
-                                mListView.setAdapter(myAdapter);
 //                                mDBConnector.update(md);
                                 intent.putExtra("FILE", file);
                                 startActivity(intent);
@@ -103,24 +112,4 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             dialog.show();
         });
     }
-
-    public class Adapter extends BaseAdapter{
-        private ArrayList<Projects> arrayMyNotes;
-        Adapter(Context context, ArrayList<Projects> arr){setArrayMyData(arr);}
-        public ArrayList<Projects> getArrayMyData() {return arrayMyNotes;}
-        public void setArrayMyData(ArrayList<Projects> arrMyNotes) {this.arrayMyNotes = arrMyNotes;}
-        public int getCount () {return arrayMyNotes.size();}
-        public Object getItem (int position) { return position;}
-        public long getItemId (int position) {
-            Projects md = arrayMyNotes.get(position);
-            if (md != null) {return md.getId();}
-            return 0;
-        }
-        public View getView(int position, View convertView, ViewGroup parent) {return convertView;}
-
-    }
-
-
-
-
 }

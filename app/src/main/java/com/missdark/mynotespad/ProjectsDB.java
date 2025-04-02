@@ -19,6 +19,7 @@ public class ProjectsDB{
     private static final int NUM_COLUMN_DATE = 2;
     private static final int NUM_COLUMN_PATH = 3;
     private SQLiteDatabase mDataBase;
+    ArrayList<Projects> arr;
     public ProjectsDB(Context context){
         OpenHelperDB mOpenHelper = new OpenHelperDB(context);
         mDataBase = mOpenHelper.getWritableDatabase();
@@ -53,7 +54,7 @@ public class ProjectsDB{
     }
     public ArrayList<Projects> selectAll() {
         Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, null);
-        ArrayList<Projects> arr = new ArrayList<Projects>();
+        arr = new ArrayList<Projects>();
         mCursor.moveToFirst();
         if (!mCursor.isAfterLast()) {
             do {

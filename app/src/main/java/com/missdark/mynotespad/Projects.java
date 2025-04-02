@@ -27,7 +27,6 @@ public class Projects implements Serializable {
         return date;
     }
 
-
     public String getPath() {
         return path;
     }
