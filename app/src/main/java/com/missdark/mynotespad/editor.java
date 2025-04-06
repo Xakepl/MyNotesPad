@@ -42,21 +42,24 @@ public class editor extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
         file = (File) getIntent().getSerializableExtra("FILE");
+        //DO перенести в трай ФОС
         FileOutputStream fos;
         try {
-           fos = new FileOutputStream(file, true);
-
+             fos = new FileOutputStream(file, true);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
 
         save = findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                strTitle = strTitle + "\n";
-                if(strTitle != null && strText != null) {
+                if(title.getText().toString() != null && text.getText().toString() != null) {
+                    strTitle = (String)title.getText().toString();
+                    strText = (String)text.getText().toString();
+                    strTitle = strTitle + "\n";
                     fos.write((strTitle + "\n" + strText).getBytes());
                     Toast.makeText(editor.this, "Файл успешно сохранён", Toast.LENGTH_SHORT);
                 }
