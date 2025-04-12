@@ -7,13 +7,13 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="412dp"
+        android:layout_width="410dp"
         android:layout_height="103dp"
-        android:scaleType="centerCrop"
-        android:scaleX="0.9"
-        android:scaleY="1.1"
+        android:scaleType="fitXY"
+        android:scaleX=".9"
+        android:scaleY=".9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/lgthgray" />
