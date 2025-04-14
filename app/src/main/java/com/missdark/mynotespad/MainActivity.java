@@ -1,5 +1,6 @@
 package com.missdark.mynotespad;
 
+import static android.widget.Toast.LENGTH_LONG;
 import static java.security.AccessController.getContext;
 
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
@@ -61,6 +63,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //       Log.d("БАЗА", mDBConnector.selectAll());
 //        mListView.setAdapter(myAdapter);
         mListView.setAdapter(myAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "Выбран: ", LENGTH_LONG);
+            }
+        });
+
 //        registerForContextMenu(mListView);
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
