@@ -36,25 +36,11 @@
         android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.916"
         app:srcCompat="@drawable/gray" />
-
-    <ListView
-        android:id="@+id/list"
-        style="@style/Widget.AppCompat.Light.ListView.DropDown"
-        android:layout_width="359dp"
-        android:layout_height="467dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="41dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textV"
-        app:layout_constraintVertical_bias="0.4">
-
-    </ListView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/create"
@@ -66,5 +52,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/plus" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="347dp"
+        android:layout_height="486dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textV"
+        app:layout_constraintVertical_bias="0.02" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

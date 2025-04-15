@@ -1,34 +1,28 @@
 package com.missdark.mynotespad;
 
-import static android.widget.Toast.LENGTH_LONG;
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -37,10 +31,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     FloatingActionButton create;
     int[] viewsAd;
     ProjectsDB mDBConnector;
-        myListAdapter myAdapter;
+    myListAdapter myAdapter;
 //    CursorAdapter adapter;
     Projects md;
-    ListView mListView;
+    ListView mlistView;
     Cursor cursor;
 
     @Override
@@ -53,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Log.d("Date", "DATE : " + strDate);
 //        mContext = this;
         mDBConnector = new ProjectsDB(this);
-        mListView = findViewById(R.id.list);
+        mlistView = findViewById(R.id.list);
 //        myAdapter = new myListAdapter(mDBConnector.selectAll());
         viewsAd = new int[]{R.id.name, R.id.data};
         myAdapter = new myListAdapter(this, mDBConnector.selectAll());
@@ -62,13 +56,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 // !=========================================================================================================!
 //       Log.d("БАЗА", mDBConnector.selectAll());
 //        mListView.setAdapter(myAdapter);
-        mListView.setAdapter(myAdapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Выбран: ", LENGTH_LONG);
-            }
-        });
+        mlistView.setAdapter(myAdapter);
+//        mRListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(MainActivity.this, "Выбран: ", LENGTH_LONG);
+//            }
+//        });
 
 //        registerForContextMenu(mListView);
         create = findViewById(R.id.create);
@@ -149,7 +143,6 @@ class myListAdapter extends BaseAdapter {
         }
         return 0;
     }
-
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null)
@@ -167,6 +160,7 @@ class myListAdapter extends BaseAdapter {
 
         return convertView;
     }
+
 } // end myAdapter
 
 

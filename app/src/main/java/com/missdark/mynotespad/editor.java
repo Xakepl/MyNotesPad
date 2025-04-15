@@ -57,8 +57,8 @@ public class editor extends AppCompatActivity implements Serializable {
             public void onClick(View v) {
                 try {
                 if(title.getText().toString() != null && text.getText().toString() != null) {
-                    strTitle = (String)title.getText().toString();
-                    strText = (String)text.getText().toString();
+                    strTitle = title.getText().toString();
+                    strText = text.getText().toString();
                     strTitle = strTitle + "\n";
                     fos.write((strTitle + "\n" + strText).getBytes());
                     Toast.makeText(editor.this, "Файл успешно сохранён", Toast.LENGTH_SHORT);
