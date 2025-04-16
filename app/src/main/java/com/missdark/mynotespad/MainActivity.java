@@ -7,14 +7,17 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     int[] viewsAd;
     ProjectsDB mDBConnector;
     myListAdapter myAdapter;
-//    CursorAdapter adapter;
+    //    CursorAdapter adapter;
     Projects md;
     ListView mlistView;
     Cursor cursor;
@@ -103,12 +106,26 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             dialog.show();
         });
     }
-//    private void updateList () {
+// !!!========================!!! ЮЗАТЬ ЗАПРОС, ЕСЛИ НЕТУ ИДЕЙ ИЛИ НИЧЕГО НЕ ВЫХОДИТ !!!=================================!!!!
+    /*Короче братан, задача, у меня в коде есть класс BaseAdapter,
+    у меня есть метод onContextItemSelected() для него нужно реализовать открытие текстового файла по нажатию на айтем*/
+// !!!===================================================================================================================!!!!
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        String fname = mDBConnector.select(item.getItemId()).getName();
+        Log.e("filename", fname);
+        Toast.makeText(this, fname, Toast.LENGTH_LONG);
+        return super.onContextItemSelected(item);
+    }
+
+    //    private void updateList () {
 ////        myAdapter.setArrayMyData(mDBConnector.selectAll());
 ////        myAdapter.notifyDataSetChanged();
 //    }
-
 }
+
+
 
 class myListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
