@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         String fname = mDBConnector.select(item.getItemId()).getName();
         Log.e("filename", fname);
         Toast.makeText(this, fname, Toast.LENGTH_LONG);
+        Log.d("ITEM", item.toString());
         return super.onContextItemSelected(item);
     }
 
