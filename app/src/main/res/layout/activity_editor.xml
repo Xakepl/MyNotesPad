@@ -8,38 +8,12 @@
     android:background="#000000"
     tools:context=".editor">
 
-    <ImageView
-        android:id="@+id/toolbar"
-        android:layout_width="411dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="28dp"
-        android:scaleType="centerInside"
-        android:scaleX="2.25"
-        android:scaleY="1.28"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/lgthgray" />
-
-    <ImageView
-        android:id="@+id/titleView"
-        android:layout_width="407dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="56dp"
-        android:scaleType="centerInside"
-        android:scaleX="1.28"
-        android:scaleY="1.15"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/lgthgray" />
-
     <EditText
         android:id="@+id/titleText"
         style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
-        android:layout_width="348dp"
-        android:layout_height="51dp"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ltgray"
         android:ems="10"
         android:hint="Заголовок"
         android:inputType="text"
@@ -47,54 +21,62 @@
         android:singleLine="false"
         android:textColorHint="#FFFFFF"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/titleView"
+        app:layout_constraintBottom_toTopOf="@+id/MultiLineText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
-        app:layout_constraintStart_toStartOf="@+id/titleView"
-        app:layout_constraintTop_toTopOf="@+id/titleView"
-        app:layout_constraintVertical_bias="0.419" />
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.591" />
 
     <EditText
         android:id="@+id/MultiLineText"
         style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
-        android:layout_width="362dp"
-        android:layout_height="481dp"
+        android:layout_width="370dp"
+        android:layout_height="480dp"
         android:background="@drawable/gray"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:scaleX="1.1"
-        android:scaleY="1.1"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
-        app:layout_constraintVertical_bias="0.489" />
+        tools:layout_editor_absoluteY="141dp" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="370dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ltgray"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MultiLineText"
+        app:layout_constraintVertical_bias="0.416" />
 
     <ImageView
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="268dp"
+        android:layout_marginEnd="260dp"
         android:background="@null"
         android:tint="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        app:layout_constraintEnd_toEndOf="@+id/materialToolbar"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        tools:layout_editor_absoluteY="656dp" />
 
     <ImageView
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginEnd="24dp"
         android:tint="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toStartOf="@+id/save"
-        app:layout_constraintHorizontal_bias="0.232"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
+        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintStart_toStartOf="@+id/materialToolbar"
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        tools:layout_editor_absoluteY="656dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
