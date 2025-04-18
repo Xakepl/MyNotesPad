@@ -12,7 +12,6 @@
         android:id="@+id/toolbar"
         android:layout_width="411dp"
         android:layout_height="46dp"
-        android:layout_marginTop="26dp"
         android:layout_marginBottom="28dp"
         android:scaleType="centerInside"
         android:scaleX="2.25"
@@ -21,7 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textV"
         app:srcCompat="@drawable/lgthgray" />
 
     <ImageView
@@ -56,35 +54,23 @@
         app:layout_constraintTop_toTopOf="@+id/titleView"
         app:layout_constraintVertical_bias="0.419" />
 
-    <ImageView
-        android:id="@+id/textV"
-        android:layout_width="410dp"
-        android:layout_height="461dp"
-        android:layout_marginTop="32dp"
-        android:scaleX="1.4"
-        android:scaleY="1.12"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/gray" />
-
     <EditText
         android:id="@+id/MultiLineText"
         style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
-        android:layout_width="318dp"
-        android:layout_height="448dp"
+        android:layout_width="362dp"
+        android:layout_height="481dp"
+        android:background="@drawable/gray"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="@+id/textV"
-        app:layout_constraintEnd_toEndOf="@+id/textV"
-        app:layout_constraintHorizontal_bias="0.505"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textV"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
+        app:layout_constraintVertical_bias="0.489" />
 
     <ImageView
         android:id="@+id/save"
