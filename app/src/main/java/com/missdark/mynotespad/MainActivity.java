@@ -1,16 +1,13 @@
 package com.missdark.mynotespad;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -36,16 +33,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ProjectsDB mDBConnector;
     myListAdapter myAdapter;
     //    CursorAdapter adapter;
-    Projects md;
     ListView mlistView;
-    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String strDate = sdf.format(c.getTime());
         Log.d("Date", "DATE : " + strDate);
 //        mContext = this;
@@ -80,27 +75,19 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             builder.setTitle("Ввод данных")
                     .setMessage("Пожалуйста, введите название заметки:")
                     .setView(inputEditText)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String inputText = inputEditText.getText().toString();
-                            if (!inputText.isEmpty()) {
-                                Intent intent = new Intent(MainActivity.this, editor.class);
-                                File file = new File(getFilesDir(), (String) inputText + ".txt");
-                                mDBConnector.insert(inputText, strDate, (String) file.getPath());
-                                intent.putExtra("FILE", file);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT);
-                            }
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        String inputText = inputEditText.getText().toString();
+                        if (!inputText.isEmpty()) {
+                            Intent intent = new Intent(MainActivity.this, editor.class);
+                            File file = new File(getFilesDir(), inputText + ".txt");
+                            mDBConnector.insert(inputText, strDate, file.getPath());
+                            intent.putExtra("FILE", file);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT).show();
                         }
                     })
-                    .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
+                    .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
         });
@@ -128,16 +115,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
 
 class myListAdapter extends BaseAdapter {
-    private LayoutInflater mLayoutInflater;
+    private final LayoutInflater mLayoutInflater;
     private ArrayList<Projects> arrayMyMatches;
 
     public myListAdapter (Context ctx, ArrayList<Projects> arr) {
         mLayoutInflater = LayoutInflater.from(ctx);
         setArrayMyData(arr);
     }
-    public ArrayList<Projects> getArrayMyData() {
-        return arrayMyMatches;
-    }
+//    public ArrayList<Projects> getArrayMyData() {
+//        return arrayMyMatches;
+//    }
     public void setArrayMyData(ArrayList<Projects> arrayMyData) {this.arrayMyMatches = arrayMyData;}
 
     public int getCount () {
@@ -155,9 +142,9 @@ class myListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null)
             convertView = mLayoutInflater.inflate(R.layout.item_file, null);
-        TextView name= (TextView)convertView.findViewById(R.id.name);
-        TextView path = (TextView)convertView.findViewById(R.id.path);
-        TextView data=(TextView)convertView.findViewById(R.id.data);
+        TextView name= convertView.findViewById(R.id.name);
+        TextView path = convertView.findViewById(R.id.path);
+        TextView data=convertView.findViewById(R.id.data);
         Projects md = arrayMyMatches.get(position);
         name.setText(md.getName());
         path.setText(md.getPath());
