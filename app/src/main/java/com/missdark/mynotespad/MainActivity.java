@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 Intent intent = new Intent(MainActivity.this, editor.class);
                                 File file = new File(getFilesDir(), (String) inputText + ".txt");
                                 mDBConnector.insert(inputText, strDate, (String) file.getPath());
-//                                mDBConnector.update(md);
                                 intent.putExtra("FILE", file);
                                 startActivity(intent);
                             } else {
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         String fname = mDBConnector.select(item.getItemId()).getName();
         Log.e("filename", fname);
-        Toast.makeText(this, fname, Toast.LENGTH_LONG);
+        Toast.makeText(this, fname, Toast.LENGTH_LONG).show();
         Log.d("ITEM", item.toString());
         return super.onContextItemSelected(item);
     }
@@ -136,46 +135,33 @@ class myListAdapter extends BaseAdapter {
         mLayoutInflater = LayoutInflater.from(ctx);
         setArrayMyData(arr);
     }
-
     public ArrayList<Projects> getArrayMyData() {
         return arrayMyMatches;
     }
-
-    public void setArrayMyData(ArrayList<Projects> arrayMyData) {
-        this.arrayMyMatches = arrayMyData;
-    }
+    public void setArrayMyData(ArrayList<Projects> arrayMyData) {this.arrayMyMatches = arrayMyData;}
 
     public int getCount () {
         return arrayMyMatches.size();
     }
 
-    public Object getItem (int position) {
-
-        return position;
-    }
+    public Object getItem (int position) {return position;}
 
     public long getItemId (int position) {
         Projects md = arrayMyMatches.get(position);
-        if (md != null) {
+        if (md != null)
             return md.getId();
-        }
         return 0;
     }
     public View getView(int position, View convertView, ViewGroup parent) {
-
         if (convertView == null)
             convertView = mLayoutInflater.inflate(R.layout.item_file, null);
-
         TextView name= (TextView)convertView.findViewById(R.id.name);
         TextView path = (TextView)convertView.findViewById(R.id.path);
         TextView data=(TextView)convertView.findViewById(R.id.data);
-
-
         Projects md = arrayMyMatches.get(position);
         name.setText(md.getName());
         path.setText(md.getPath());
         data.setText(md.getDate());
-
         return convertView;
     }
 

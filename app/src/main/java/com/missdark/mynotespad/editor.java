@@ -31,6 +31,8 @@ import java.nio.charset.StandardCharsets;
 public class editor extends AppCompatActivity implements Serializable {
     EditText title;
     String strTitle;
+
+    String ftext;
     EditText text;
     ImageView save;
     ImageView back;
@@ -43,29 +45,20 @@ public class editor extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_editor);
         file = (File) getIntent().getSerializableExtra("FILE");
         //DO перенести в трай ФОС
-        FileOutputStream fos;
-        try {
-             fos = new FileOutputStream(file, true);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
 
         save = findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                if(title.getText().toString() != null && text.getText().toString() != null) {
-                    strTitle = title.getText().toString();
-                    strText = text.getText().toString();
-                    strTitle = strTitle + "\n";
-                    fos.write((strTitle + "\n" + strText).getBytes());
+                    FileOutputStream fos;
+                    try {
+                        fos = new FileOutputStream(file, true);
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                    fos.write(text().getBytes());
                     Toast.makeText(editor.this, "Файл успешно сохранён", Toast.LENGTH_SHORT);
-                }
-                else{
-                    Toast.makeText(editor.this, "Ошибка сохранения", Toast.LENGTH_SHORT);
-                }
                 } catch (IOException e) {
                     Toast.makeText(editor.this, "Ошибка сохранения", Toast.LENGTH_SHORT);
                     throw new RuntimeException(e);
@@ -81,7 +74,13 @@ public class editor extends AppCompatActivity implements Serializable {
             }
         });
         //FileOnputStream fos = new FileInputStream();
-
-
     }
+    String text(){
+        strTitle = title.getText().toString();
+        strText = text.getText().toString();
+        strTitle = strTitle + "\n";
+        ftext = strTitle + strText;
+        return ftext;
+    }
+
 }
