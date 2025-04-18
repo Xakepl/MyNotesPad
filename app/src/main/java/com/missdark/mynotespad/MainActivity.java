@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         String strDate = sdf.format(c.getTime());
         Log.d("Date", "DATE : " + strDate);
 //        mContext = this;
@@ -50,17 +51,17 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         viewsAd = new int[]{R.id.name, R.id.data};
         myAdapter = new myListAdapter(this, mDBConnector.selectAll());
 // !!!!!!!!!!!!!!!!!=========== ВНИМАНИЕ, ИСПОЛЬЗОВАТЬ В СЛУЧАЕ ОЧИСТКИ =====================!!!!!!!!!!!!!!!!!
-//        mDBConnector.deleteAll();
+        mDBConnector.deleteAll();
 // !=========================================================================================================!
 //       Log.d("БАЗА", mDBConnector.selectAll());
 //        mListView.setAdapter(myAdapter);
         mlistView.setAdapter(myAdapter);
-//        mRListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(MainActivity.this, "Выбран: ", LENGTH_LONG);
-//            }
-//        });
+        mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "Выбран: ", Toast.LENGTH_LONG);
+            }
+        });
 
 //        registerForContextMenu(mListView);
         create = findViewById(R.id.create);
