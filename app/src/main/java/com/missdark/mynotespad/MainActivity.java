@@ -115,6 +115,42 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //    }
 
     // TODO Сделать разметки под разные разметки экранов!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //TODO Воткнуть код из коментария
+    /*
+    private void loadFileIntoEditTexts(String fileName, EditText editTextTitle, EditText editTextContent) {
+        try {
+            // Открываем файл (пример для внутреннего хранилища)
+            File file = new File(getFilesDir(), fileName);
+
+            if (!file.exists()) {
+                Toast.makeText(this, "Файл не найден", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            StringBuilder content = new StringBuilder();
+            String line;
+            boolean isFirstLine = true;
+
+            // Читаем файл построчно
+            while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    editTextTitle.setText(line); // Первая строка → Title
+                    isFirstLine = false;
+                } else {
+                    content.append(line).append("\n"); // Остальное → Content
+                }
+            }
+            reader.close();
+
+            editTextContent.setText(content.toString()); // Заполняем поле контентом
+
+        } catch (IOException e) {
+            Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    } */
+
 
 }
 
