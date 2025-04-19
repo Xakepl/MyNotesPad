@@ -43,28 +43,8 @@ public class editor extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-        file = (File) getIntent().getSerializableExtra("FILE");
-        //DO перенести в трай ФОС
-
         save = findViewById(R.id.save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    FileOutputStream fos;
-                    try {
-                        fos = new FileOutputStream(file, true);
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                    fos.write(text().getBytes());
-                    Toast.makeText(editor.this, "Файл успешно сохранён", Toast.LENGTH_SHORT);
-                } catch (IOException e) {
-                    Toast.makeText(editor.this, "Ошибка сохранения", Toast.LENGTH_SHORT);
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+        save.setOnClickListener(v -> save());
         back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +53,6 @@ public class editor extends AppCompatActivity implements Serializable {
                 startActivity(i);
             }
         });
-        //FileOnputStream fos = new FileInputStream();
     }
     String text(){
         strTitle = title.getText().toString();
@@ -81,6 +60,22 @@ public class editor extends AppCompatActivity implements Serializable {
         strTitle = strTitle + "\n";
         ftext = strTitle + strText;
         return ftext;
+    }
+
+    void save(){
+        file = (File) getIntent().getSerializableExtra("FILE");
+        if (text().isEmpty()) {
+            Toast.makeText(this, "Введите текст!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(text().getBytes());
+            Toast.makeText(this, "Файл " + file.getName() + " сохранён: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "Ошибка сохранения: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+
     }
 
 }

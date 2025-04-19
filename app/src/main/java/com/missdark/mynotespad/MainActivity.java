@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         viewsAd = new int[]{R.id.name, R.id.data};
         myAdapter = new myListAdapter(this, mDBConnector.selectAll());
 // !!!!!!!!!!!!!!!!!=========== ВНИМАНИЕ, ИСПОЛЬЗОВАТЬ В СЛУЧАЕ ОЧИСТКИ =====================!!!!!!!!!!!!!!!!!
-        mDBConnector.deleteAll();
+//        mDBConnector.deleteAll();
 // !=========================================================================================================!
 //       Log.d("БАЗА", mDBConnector.selectAll());
 //        mListView.setAdapter(myAdapter);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Выбран: ", Toast.LENGTH_LONG);
+                Toast.makeText(MainActivity.this, "Выбран: " + mDBConnector.select(id).getName(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 ////        myAdapter.setArrayMyData(mDBConnector.selectAll());
 ////        myAdapter.notifyDataSetChanged();
 //    }
+
+
 }
 
 
