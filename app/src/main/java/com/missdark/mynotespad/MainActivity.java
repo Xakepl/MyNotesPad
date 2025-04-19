@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,9 +30,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     FloatingActionButton create;
     ProjectsDB mDBConnector;
     myListAdapter myAdapter;
-    //    CursorAdapter adapter;
-
+    File file;
     ListView mlistView;
+    enum Status {OPENFILEANDEDIT, CREATNEW}
+
+    Status def = Status.CREATNEW; //по дефолту
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(MainActivity.this, "Выбран: " + mDBConnector.select(id).getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, editor.class);
+                file = new File(getFilesDir(), mDBConnector.select(id).getName() + ".txt");
+                intent.putExtra("STATE", Status.OPENFILEANDEDIT);
+                intent.putExtra("FILE", file);
+                startActivity(intent);
             }
         });
 
@@ -80,9 +85,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             String inputText = inputEditText.getText().toString();
                             if (!inputText.isEmpty()) {
                                 Intent intent = new Intent(MainActivity.this, editor.class);
-                                File file = new File(getFilesDir(), inputText + ".txt");
+                                file = new File(getFilesDir(), inputText + ".txt");
                                 mDBConnector.insert(inputText, strDate, file.getPath());
                                 intent.putExtra("FILE", file);
+                                intent.putExtra("STATE", def);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT).show();
@@ -99,102 +105,63 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     /*Короче братан, задача, у меня в коде есть класс BaseAdapter,
     у меня есть метод onContextItemSelected() для него нужно реализовать открытие текстового файла по нажатию на айтем*/
 // !!!===================================================================================================================!!!!
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        String fname = mDBConnector.select(item.getItemId()).getName();
-        Log.e("filename", fname);
-        Toast.makeText(this, fname, Toast.LENGTH_LONG).show();
-        Log.d("ITEM", item.toString());
-        return super.onContextItemSelected(item);
-    }
-
     //    private void updateList () {
-////        myAdapter.setArrayMyData(mDBConnector.selectAll());
-////        myAdapter.notifyDataSetChanged();
+
+    /// /        myAdapter.setArrayMyData(mDBConnector.selectAll());
+    /// /        myAdapter.notifyDataSetChanged();
 //    }
 
     // TODO Сделать разметки под разные разметки экранов!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //TODO Воткнуть код из коментария
-    /*
-    private void loadFileIntoEditTexts(String fileName, EditText editTextTitle, EditText editTextContent) {
-        try {
-            // Открываем файл (пример для внутреннего хранилища)
-            File file = new File(getFilesDir(), fileName);
 
-            if (!file.exists()) {
-                Toast.makeText(this, "Файл не найден", Toast.LENGTH_SHORT).show();
-                return;
-            }
 
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            StringBuilder content = new StringBuilder();
-            String line;
-            boolean isFirstLine = true;
+    class myListAdapter extends BaseAdapter {
+        private final LayoutInflater mLayoutInflater;
+        private ArrayList<Projects> arrayMyMatches;
 
-            // Читаем файл построчно
-            while ((line = reader.readLine()) != null) {
-                if (isFirstLine) {
-                    editTextTitle.setText(line); // Первая строка → Title
-                    isFirstLine = false;
-                } else {
-                    content.append(line).append("\n"); // Остальное → Content
-                }
-            }
-            reader.close();
-
-            editTextContent.setText(content.toString()); // Заполняем поле контентом
-
-        } catch (IOException e) {
-            Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        public myListAdapter(Context ctx, ArrayList<Projects> arr) {
+            mLayoutInflater = LayoutInflater.from(ctx);
+            setArrayMyData(arr);
         }
-    } */
 
-
-}
-
-
-
-class myListAdapter extends BaseAdapter {
-    private final LayoutInflater mLayoutInflater;
-    private ArrayList<Projects> arrayMyMatches;
-
-    public myListAdapter (Context ctx, ArrayList<Projects> arr) {
-        mLayoutInflater = LayoutInflater.from(ctx);
-        setArrayMyData(arr);
-    }
-//    public ArrayList<Projects> getArrayMyData() {
+        //    public ArrayList<Projects> getArrayMyData() {
 //        return arrayMyMatches;
 //    }
-    public void setArrayMyData(ArrayList<Projects> arrayMyData) {this.arrayMyMatches = arrayMyData;}
+        public void setArrayMyData(ArrayList<Projects> arrayMyData) {
+            this.arrayMyMatches = arrayMyData;
+        }
 
-    public int getCount () {
-        return arrayMyMatches.size();
+        public int getCount() {
+            return arrayMyMatches.size();
+        }
+
+        public Object getItem(int position) {
+            return position;
+        }
+
+        public long getItemId(int position) {
+            Projects md = arrayMyMatches.get(position);
+            if (md != null)
+                return md.getId();
+            return 0;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null)
+                convertView = mLayoutInflater.inflate(R.layout.item_file, null);
+            TextView name = convertView.findViewById(R.id.name);
+            TextView path = convertView.findViewById(R.id.path);
+            TextView data = convertView.findViewById(R.id.data);
+            Projects md = arrayMyMatches.get(position);
+            name.setText(md.getName());
+            path.setText(md.getPath());
+            data.setText(md.getDate());
+            return convertView;
+        }
+
     }
+}
 
-    public Object getItem (int position) {return position;}
-
-    public long getItemId (int position) {
-        Projects md = arrayMyMatches.get(position);
-        if (md != null)
-            return md.getId();
-        return 0;
-    }
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null)
-            convertView = mLayoutInflater.inflate(R.layout.item_file, null);
-        TextView name= convertView.findViewById(R.id.name);
-        TextView path = convertView.findViewById(R.id.path);
-        TextView data=convertView.findViewById(R.id.data);
-        Projects md = arrayMyMatches.get(position);
-        name.setText(md.getName());
-        path.setText(md.getPath());
-        data.setText(md.getDate());
-        return convertView;
-    }
-
-} // end myAdapter
 
 /*
 !==============

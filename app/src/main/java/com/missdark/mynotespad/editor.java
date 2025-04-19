@@ -3,6 +3,7 @@ package com.missdark.mynotespad;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -19,10 +20,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -42,18 +45,49 @@ public class editor extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
         title = findViewById(R.id.titleText);
         text = findViewById(R.id.textC);
         save = findViewById(R.id.save);
         save.setOnClickListener(v -> save());
         back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(editor.this, MainActivity.class);
-                startActivity(i);
-            }
+        back.setOnClickListener(v -> {
+            Intent i = new Intent(editor.this, MainActivity.class);
+            startActivity(i);
         });
+
+        if (getIntent().getSerializableExtra("STATE") == MainActivity.Status.OPENFILEANDEDIT) {
+            try {
+                openAndEdit();
+            } catch (FileNotFoundException e) {
+                Log.e("unsucces openFile", String.valueOf(e));
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    void openAndEdit() throws FileNotFoundException {
+        file = (File) getIntent().getSerializableExtra("FILE");
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            StringBuilder content = new StringBuilder();
+            String line;
+            boolean isFirstLine = true;
+            // Читаем файл построчно
+            while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    title.setText(line); // Первая строка → Title
+                    isFirstLine = false;
+                } else {
+                    content.append(line).append("\n"); // Остальное → Content
+                }
+            }
+            reader.close();
+            text.setText(content.toString()); // Заполняем поле контентом
+        } catch (IOException e) {
+        Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show();
+        e.printStackTrace();
+    }
     }
 
     void save(){
@@ -73,7 +107,6 @@ public class editor extends AppCompatActivity implements Serializable {
             Toast.makeText(this, "Ошибка сохранения: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-
     }
 
 }
