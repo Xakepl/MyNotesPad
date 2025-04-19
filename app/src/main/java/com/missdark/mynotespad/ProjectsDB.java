@@ -52,6 +52,15 @@ public class ProjectsDB{
         String path = mCursor.getString(NUM_COLUMN_PATH);
         return new Projects(id, name, date, path);
     }
+    public Boolean isNameExists(String name){
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME + " = ?";
+        Cursor cursor = mDataBase.rawQuery(query, new String[]{name});
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+
+        return exists;
+    }
+
     public ArrayList<Projects> selectAll() {
         Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, null);
         arr = new ArrayList<Projects>();

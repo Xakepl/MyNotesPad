@@ -30,10 +30,10 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
     FloatingActionButton create;
-    int[] viewsAd;
     ProjectsDB mDBConnector;
     myListAdapter myAdapter;
     //    CursorAdapter adapter;
+
     ListView mlistView;
 
     @Override
@@ -47,23 +47,18 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //        mContext = this;
         mDBConnector = new ProjectsDB(this);
         mlistView = findViewById(R.id.list);
-//        myAdapter = new myListAdapter(mDBConnector.selectAll());
-        viewsAd = new int[]{R.id.name, R.id.data};
         myAdapter = new myListAdapter(this, mDBConnector.selectAll());
 // !!!!!!!!!!!!!!!!!=========== ВНИМАНИЕ, ИСПОЛЬЗОВАТЬ В СЛУЧАЕ ОЧИСТКИ =====================!!!!!!!!!!!!!!!!!
 //        mDBConnector.deleteAll();
 // !=========================================================================================================!
-//       Log.d("БАЗА", mDBConnector.selectAll());
-//        mListView.setAdapter(myAdapter);
         mlistView.setAdapter(myAdapter);
         mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Выбран: " + mDBConnector.select(id).getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Выбран: " + mDBConnector.select(id).getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
-//        registerForContextMenu(mListView);
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
             // Создаем EditText
@@ -77,16 +72,23 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     .setMessage("Пожалуйста, введите название заметки:")
                     .setView(inputEditText)
                     .setPositiveButton("OK", (dialog, which) -> {
-                        String inputText = inputEditText.getText().toString();
-                        if (!inputText.isEmpty()) {
-                            Intent intent = new Intent(MainActivity.this, editor.class);
-                            File file = new File(getFilesDir(), inputText + ".txt");
-                            mDBConnector.insert(inputText, strDate, file.getPath());
-                            intent.putExtra("FILE", file);
-                            startActivity(intent);
+                        if (mDBConnector.isNameExists(inputEditText.getText().toString())) {
+                            // Такое название уже есть в БД
+                            Toast.makeText(this, "Файл с таким названием уже существует!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT).show();
+                            // Названия нет, можно сохранять
+                            String inputText = inputEditText.getText().toString();
+                            if (!inputText.isEmpty()) {
+                                Intent intent = new Intent(MainActivity.this, editor.class);
+                                File file = new File(getFilesDir(), inputText + ".txt");
+                                mDBConnector.insert(inputText, strDate, file.getPath());
+                                intent.putExtra("FILE", file);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT).show();
+                            }
                         }
+
                     })
                     .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 ////        myAdapter.notifyDataSetChanged();
 //    }
 
+    // TODO Сделать разметки под разные разметки экранов!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 }
 

@@ -28,10 +28,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/MultiLineText"
+        android:id="@+id/textC"
         style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
         android:layout_width="370dp"
-        android:layout_height="455dp"
+        android:layout_height="611dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/gray"
         android:ems="10"
@@ -43,7 +43,7 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleText"
-        app:layout_constraintVertical_bias="0.209" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/materialToolbar"
@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.954" />
+        app:layout_constraintVertical_bias="0.979" />
 
     <ImageView
         android:id="@+id/save"

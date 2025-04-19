@@ -31,7 +31,6 @@ import java.nio.charset.StandardCharsets;
 public class editor extends AppCompatActivity implements Serializable {
     EditText title;
     String strTitle;
-
     String ftext;
     EditText text;
     ImageView save;
@@ -43,6 +42,8 @@ public class editor extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+        title = findViewById(R.id.titleText);
+        text = findViewById(R.id.textC);
         save = findViewById(R.id.save);
         save.setOnClickListener(v -> save());
         back = findViewById(R.id.back);
@@ -54,23 +55,20 @@ public class editor extends AppCompatActivity implements Serializable {
             }
         });
     }
-    String text(){
+
+    void save(){
+        file = (File) getIntent().getSerializableExtra("FILE");
         strTitle = title.getText().toString();
         strText = text.getText().toString();
         strTitle = strTitle + "\n";
         ftext = strTitle + strText;
-        return ftext;
-    }
 
-    void save(){
-        file = (File) getIntent().getSerializableExtra("FILE");
-        if (text().isEmpty()) {
+        if (ftext.isEmpty()) {
             Toast.makeText(this, "Введите текст!", Toast.LENGTH_SHORT).show();
-            return;
         }
         try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(text().getBytes());
-            Toast.makeText(this, "Файл " + file.getName() + " сохранён: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            fos.write(ftext.getBytes());
+            Toast.makeText(this, "Файл " + file.getName() + " сохранён: " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Toast.makeText(this, "Ошибка сохранения: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
