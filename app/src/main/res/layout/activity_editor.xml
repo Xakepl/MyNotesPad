@@ -63,12 +63,10 @@
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="260dp"
         android:background="@null"
         android:tint="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/materialToolbar"
-        app:layout_constraintEnd_toEndOf="@+id/materialToolbar"
-        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintEnd_toStartOf="@+id/clear"
         app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="@+id/materialToolbar"
         app:srcCompat="@android:drawable/ic_menu_save" />
@@ -83,5 +81,25 @@
         app:layout_constraintStart_toStartOf="@+id/materialToolbar"
         app:layout_constraintTop_toTopOf="@+id/materialToolbar"
         app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    <ImageView
+        android:id="@+id/clear"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="24dp"
+        android:tint="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/materialToolbar"
+        app:layout_constraintEnd_toStartOf="@+id/fontA"
+        app:layout_constraintTop_toTopOf="@+id/materialToolbar"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <ImageView
+        android:id="@+id/fontA"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="152dp"
+        app:layout_constraintEnd_toEndOf="@+id/materialToolbar"
+        app:srcCompat="@drawable/icfont"
+        tools:layout_editor_absoluteY="667dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

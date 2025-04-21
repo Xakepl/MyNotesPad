@@ -1,35 +1,22 @@
 package com.missdark.mynotespad;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.LayoutInflaterCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
 
 public class editor extends AppCompatActivity implements Serializable {
     EditText title;
@@ -38,6 +25,8 @@ public class editor extends AppCompatActivity implements Serializable {
     EditText text;
     ImageView save;
     ImageView back;
+
+    ImageView clear;
     String strText;
     File file;
 
@@ -51,10 +40,12 @@ public class editor extends AppCompatActivity implements Serializable {
         save = findViewById(R.id.save);
         save.setOnClickListener(v -> save());
         back = findViewById(R.id.back);
+        clear = findViewById(R.id.clear);
         back.setOnClickListener(v -> {
             Intent i = new Intent(editor.this, MainActivity.class);
             startActivity(i);
         });
+        clear.setOnClickListener(v -> clear());
 
         if (getIntent().getSerializableExtra("STATE") == MainActivity.Status.OPENFILEANDEDIT) {
             try {
@@ -64,6 +55,7 @@ public class editor extends AppCompatActivity implements Serializable {
                 throw new RuntimeException(e);
             }
         }
+
     }
 
     void openAndEdit() throws FileNotFoundException {
@@ -107,6 +99,17 @@ public class editor extends AppCompatActivity implements Serializable {
             Toast.makeText(this, "Ошибка сохранения: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+    }
+
+    void clear(){
+        title.setText("");
+        text.setText("");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        save();
     }
 
 }

@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Большая "A" (высота = 18dp) -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M12,3 L6,21 H8 L10,16 H14 L16,21 H18 L12,3 Z M12,7 L14,14 H10 L12,7 Z" />
+
+    <!-- Маленькая "a" (высота = 8dp) -->
+    <path        android:fillColor="#FF000000"
+        android:pathData="M6,20 C7,20.1 7.9,21 9,21 C10.1,21 11,20.1 11,19 C11,17.9 10.1,17 9,17 C7.9,17 7,17.9 7,19 Z" />
+</vector>

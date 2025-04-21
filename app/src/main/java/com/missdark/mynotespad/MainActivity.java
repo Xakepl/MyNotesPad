@@ -94,9 +94,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT).show();
                             }
                         }
-
-                    })
-                    .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+                    }).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
         });
@@ -111,8 +109,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     /// /        myAdapter.notifyDataSetChanged();
 //    }
 
-    // TODO Сделать разметки под разные разметки экранов!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //TODO Воткнуть код из коментария
+    // TODO Сделать разметки под разные разметки экранов!!!!!!!!!!!!!
 
 
     class myListAdapter extends BaseAdapter {
