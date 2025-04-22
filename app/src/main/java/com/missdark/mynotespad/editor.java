@@ -3,6 +3,8 @@ package com.missdark.mynotespad;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -25,7 +27,6 @@ public class editor extends AppCompatActivity implements Serializable {
     EditText text;
     ImageView save;
     ImageView back;
-
     ImageView clear;
     String strText;
     File file;
@@ -42,6 +43,7 @@ public class editor extends AppCompatActivity implements Serializable {
         back = findViewById(R.id.back);
         clear = findViewById(R.id.clear);
         back.setOnClickListener(v -> {
+            save();
             Intent i = new Intent(editor.this, MainActivity.class);
             startActivity(i);
         });
@@ -99,6 +101,26 @@ public class editor extends AppCompatActivity implements Serializable {
             Toast.makeText(this, "Ошибка сохранения: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.setHeaderTitle("Выберите шрифт: ");
+        menu.add(0, v.getId(), 0, "8");
+        menu.add(0, v.getId(), 0, "9");
+        menu.add(0, v.getId(), 0, "10");
+        menu.add(0, v.getId(), 0, "11");
+        menu.add(0, v.getId(), 0, "12");
+        menu.add(0, v.getId(), 0, "14");
+        menu.add(0, v.getId(), 0, "16");
+        menu.add(0, v.getId(), 0, "18");
+        menu.add(0, v.getId(), 0, "20");
+        menu.add(0, v.getId(), 0, "22");
+        menu.add(0, v.getId(), 0, "24");
+        menu.add(0, v.getId(), 0, "26");
+
     }
 
     void clear(){
