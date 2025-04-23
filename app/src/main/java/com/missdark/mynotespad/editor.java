@@ -3,13 +3,13 @@ package com.missdark.mynotespad;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
@@ -30,6 +30,7 @@ public class editor extends AppCompatActivity implements Serializable {
     ImageView clear;
     String strText;
     File file;
+    Spinner FSspinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class editor extends AppCompatActivity implements Serializable {
         save.setOnClickListener(v -> save());
         back = findViewById(R.id.back);
         clear = findViewById(R.id.clear);
+        FSspinner = findViewById(R.id.font_size);
         back.setOnClickListener(v -> {
             save();
             Intent i = new Intent(editor.this, MainActivity.class);
@@ -56,6 +58,7 @@ public class editor extends AppCompatActivity implements Serializable {
                 throw new RuntimeException(e);
             }
         }
+
 
     }
 
@@ -80,7 +83,7 @@ public class editor extends AppCompatActivity implements Serializable {
         } catch (IOException e) {
         Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show();
         e.printStackTrace();
-    }
+        }
     }
 
     void save(){
@@ -90,7 +93,7 @@ public class editor extends AppCompatActivity implements Serializable {
         strTitle = strTitle + "\n";
         ftext = strTitle + strText;
 
-        if (ftext.isEmpty()) {
+        if(ftext.isEmpty()) {
             Toast.makeText(this, "Введите текст!", Toast.LENGTH_SHORT).show();
         }
         try (FileOutputStream fos = new FileOutputStream(file)) {
@@ -102,29 +105,71 @@ public class editor extends AppCompatActivity implements Serializable {
         }
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-
-        menu.setHeaderTitle("Выберите шрифт: ");
-        menu.add(0, v.getId(), 0, "8");
-        menu.add(0, v.getId(), 0, "9");
-        menu.add(0, v.getId(), 0, "10");
-        menu.add(0, v.getId(), 0, "11");
-        menu.add(0, v.getId(), 0, "12");
-        menu.add(0, v.getId(), 0, "14");
-        menu.add(0, v.getId(), 0, "16");
-        menu.add(0, v.getId(), 0, "18");
-        menu.add(0, v.getId(), 0, "20");
-        menu.add(0, v.getId(), 0, "22");
-        menu.add(0, v.getId(), 0, "24");
-        menu.add(0, v.getId(), 0, "26");
-
-    }
 
     void clear(){
         title.setText("");
         text.setText("");
+    }
+
+    void getFonts(){
+       FSspinner.setOnClickListener(v -> {
+        switch (FSspinner.getSelectedItem().toString()){
+           case "8":
+           text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+           break;
+            case "9":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);
+            break;
+            case "10":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                break;
+            case "11":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+                break;
+            case "12":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                break;
+            case "14":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                break;
+            case "16":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                break;
+            case "18":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                break;
+            case "20":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                break;
+            case "22":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+                break;
+            case "24":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+                break;
+            case "26":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                break;
+            case "28":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+                break;
+            case "36":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
+                break;
+            case "48":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
+                break;
+            case "72":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 72);
+                break;
+            case "84":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 84);
+                break;
+            case "96":
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 96);
+                break;
+        }
+       });
     }
 
     @Override

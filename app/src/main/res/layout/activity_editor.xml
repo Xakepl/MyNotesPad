@@ -104,7 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_marginStart="20dp"
-            android:layout_weight="1.2" />
+            android:layout_weight="1.2"
+            android:entries="@array/FontSize"/>
 
         <Spinner
             android:id="@+id/font_size2"
