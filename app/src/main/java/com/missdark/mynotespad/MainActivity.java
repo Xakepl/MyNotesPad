@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         mlistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder builder = new Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Подтвердите удаление: ")
                         .setPositiveButton("OK", (dialog, which) ->mDBConnector.delete(mlistView.getSelectedItemId()))
                         //TODO сделать удаление файла!!!!!!!
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             inputEditText.setPadding(32, 32, 32, 32);
 
 // Создаем AlertDialog
-            AlertDialog.Builder builder = new Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Ввод данных")
                     .setMessage("Пожалуйста, введите название заметки:")
                     .setView(inputEditText)
