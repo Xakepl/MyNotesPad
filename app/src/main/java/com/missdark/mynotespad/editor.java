@@ -35,7 +35,6 @@ public class editor extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-
         title = findViewById(R.id.titleText);
         text = findViewById(R.id.textC);
         save = findViewById(R.id.save);
@@ -133,5 +132,8 @@ public class editor extends AppCompatActivity implements Serializable {
         super.onPause();
         save();
     }
+
+    //https://clck.ru/3LbU9c
+    //смена шрифтов
 
 }

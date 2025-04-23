@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -55,15 +52,25 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //        mDBConnector.deleteAll();
 // !=========================================================================================================!
         mlistView.setAdapter(myAdapter);
-        mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mlistView.setOnItemClickListener((parent, view, position, id) -> {
+            Toast.makeText(MainActivity.this, "Выбран: " + mDBConnector.select(id).getName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, editor.class);
+            file = new File(getFilesDir(), mDBConnector.select(id).getName() + ".txt");
+            intent.putExtra("STATE", Status.OPENFILEANDEDIT);
+            intent.putExtra("FILE", file);
+            startActivity(intent);
+        });
+        mlistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Выбран: " + mDBConnector.select(id).getName(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, editor.class);
-                file = new File(getFilesDir(), mDBConnector.select(id).getName() + ".txt");
-                intent.putExtra("STATE", Status.OPENFILEANDEDIT);
-                intent.putExtra("FILE", file);
-                startActivity(intent);
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder = new Builder(MainActivity.this);
+                builder.setTitle("Подтвердите удаление: ")
+                        .setPositiveButton("OK", (dialog, which) ->mDBConnector.delete(mlistView.getSelectedItemId()))
+                        //TODO сделать удаление файла!!!!!!!
+                        .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return false;
             }
         });
 
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             inputEditText.setPadding(32, 32, 32, 32);
 
 // Создаем AlertDialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new Builder(this);
             builder.setTitle("Ввод данных")
                     .setMessage("Пожалуйста, введите название заметки:")
                     .setView(inputEditText)
@@ -103,10 +110,23 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         });
     }
 
+    void deleteFile(){
+        file.delete();
+    }
+// !!!========================!!! ЮЗАТЬ ЗАПРОС, ЕСЛИ НЕТУ ИДЕЙ ИЛИ НИЧЕГО НЕ ВЫХОДИТ !!!=================================!!!!
+    /*Короче братан, задача, у меня в коде есть класс BaseAdapter,
+    у меня есть метод onContextItemSelected() для него нужно реализовать открытие текстового файла по нажатию на айтем*/
+// !!!===================================================================================================================!!!!
+    //    private void updateList () {
+
+    /// /        myAdapter.setArrayMyData(mDBConnector.selectAll());
+    /// /        myAdapter.notifyDataSetChanged();
+//    }
+
     // TODO Сделать разметки под разные разметки экранов!!!!!!!!!!!!!
 
 
-    class myListAdapter extends BaseAdapter {
+    static class myListAdapter extends BaseAdapter {
         private final LayoutInflater mLayoutInflater;
         private ArrayList<Projects> arrayMyMatches;
 
