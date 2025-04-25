@@ -60,19 +60,21 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             intent.putExtra("FILE", file);
             startActivity(intent);
         });
-        mlistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Подтвердите удаление: ")
-                        .setPositiveButton("OK", (dialog, which) ->mDBConnector.delete(mlistView.getSelectedItemId()))
-                        //TODO сделать удаление файла!!!!!!!
-                        .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                return false;
-            }
-        });
+//        mlistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                builder.setTitle("Подтвердите удаление: ")
+//                        .setPositiveButton("OK", (dialog, which) ->{mDBConnector.delete(mlistView.getSelectedItemId());
+//                            deleteFile();
+//                        })
+//                        //TODO сделать удаление файла!!!!!!!
+//                        .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+//                return false;
+//            }
+//        });
 
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {

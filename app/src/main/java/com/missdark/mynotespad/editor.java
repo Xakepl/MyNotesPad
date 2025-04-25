@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -58,8 +59,64 @@ public class editor extends AppCompatActivity implements Serializable {
                 throw new RuntimeException(e);
             }
         }
-
-
+        FSspinner.setOnItemClickListener((parent, view, position, id) -> {
+            switch (FSspinner.getSelectedItem().toString()) {
+                case "8":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+                    break;
+                case "9":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);
+                    break;
+                case "10":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                    break;
+                case "11":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+                    break;
+                case "12":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                    break;
+                case "14":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                    break;
+                case "16":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                    break;
+                case "18":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                    break;
+                case "20":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                    break;
+                case "22":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+                    break;
+                case "24":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+                    break;
+                case "26":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                    break;
+                case "28":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+                    break;
+                case "36":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
+                    break;
+                case "48":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
+                    break;
+                case "72":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 72);
+                    break;
+                case "84":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 84);
+                    break;
+                case "96":
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 96);
+                    break;
+            }
+        });
     }
 
     void openAndEdit() throws FileNotFoundException {
@@ -108,69 +165,9 @@ public class editor extends AppCompatActivity implements Serializable {
 
     void clear(){
         title.setText("");
-        text.setText("");
+        text.setText("  ");
     }
 
-    void getFonts(){
-       FSspinner.setOnClickListener(v -> {
-        switch (FSspinner.getSelectedItem().toString()){
-           case "8":
-           text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
-           break;
-            case "9":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);
-            break;
-            case "10":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-                break;
-            case "11":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
-                break;
-            case "12":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-                break;
-            case "14":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                break;
-            case "16":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                break;
-            case "18":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-                break;
-            case "20":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                break;
-            case "22":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
-                break;
-            case "24":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-                break;
-            case "26":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-                break;
-            case "28":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
-                break;
-            case "36":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
-                break;
-            case "48":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
-                break;
-            case "72":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 72);
-                break;
-            case "84":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 84);
-                break;
-            case "96":
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 96);
-                break;
-        }
-       });
-    }
 
     @Override
     protected void onPause() {
