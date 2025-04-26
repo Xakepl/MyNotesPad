@@ -115,7 +115,7 @@ public class editor extends AppCompatActivity implements Serializable {
 //                            );
 
 //                            text.setText(spannable);
-                        }
+
                         switch (FSspinner.getSelectedItem().toString()) {
                             case "8":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);break;
                             case "9":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);break;
