@@ -105,6 +105,8 @@
             android:layout_height="32dp"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
+            android:background="#978989"
+            android:backgroundTint="#A1A1A1"
             android:entries="@array/FontSize" />
 
         <Spinner
