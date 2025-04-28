@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class editor extends AppCompatActivity implements Serializable {
+
+    private SharedPreferences sharedPreferences;
     EditText title;
     String strTitle;
     String ftext;
@@ -99,24 +101,7 @@ public class editor extends AppCompatActivity implements Serializable {
                 FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-                        // Получаем выделенный текст
-//                        int start = editText.getSelectionStart();
-//                        int end = editText.getSelectionEnd();
-//
-//                        if (start != end) { // Если есть выделение
-//                            SpannableString spannable = new SpannableString(text.getText());
-//
-//                            // Устанавливаем новый размер (в SP)
-//                            spannable.setSpan(
-//                                    new AbsoluteSizeSpan(16, true), // 16sp (true = в SP)
-//                                    start,
-//                                    end,
-//                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                            );
-
-//                            text.setText(spannable);
-
-                        switch (FSspinner.getSelectedItem().toString()) {
+                            switch (FSspinner.getSelectedItem().toString()) {
                             case "8":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);break;
                             case "9":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);break;
                             case "10":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);break;
@@ -135,11 +120,10 @@ public class editor extends AppCompatActivity implements Serializable {
                             case "72":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 72);break;
                             case "84":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 84);break;
                             case "96":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 96);break;
+                            }
                         }
-                    }
                     @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
+                    public void onNothingSelected(AdapterView<?> parent) {}
                 });
             });
 
@@ -147,6 +131,9 @@ public class editor extends AppCompatActivity implements Serializable {
 
     void openAndEdit() throws FileNotFoundException {
         file = (File) getIntent().getSerializableExtra("FILE");
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+        title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize()));
+        text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize()));
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder content = new StringBuilder();
@@ -170,6 +157,11 @@ public class editor extends AppCompatActivity implements Serializable {
     }
 
     void save(){
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor seditor = sharedPreferences.edit();
+        seditor.putFloat("TitleSize", title.getTextSize());
+        seditor.putFloat("TextSize", text.getTextSize());
+        seditor.apply();
         file = (File) getIntent().getSerializableExtra("FILE");
         strTitle = title.getText().toString();
         strText = text.getText().toString();
