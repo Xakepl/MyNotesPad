@@ -3,9 +3,6 @@ package com.missdark.mynotespad;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -87,9 +84,6 @@ public class editor extends AppCompatActivity implements Serializable {
                             case "28":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);break;
                             case "36":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);break;
                             case "48":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);break;
-                            case "72":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 72);break;
-                            case "84":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 84);break;
-                            case "96":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 96);break;
                         }
                         //TODO Сделать пандинги для заголовка
                     }
@@ -117,9 +111,6 @@ public class editor extends AppCompatActivity implements Serializable {
                             case "28":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);break;
                             case "36":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);break;
                             case "48":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);break;
-                            case "72":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 72);break;
-                            case "84":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 84);break;
-                            case "96":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 96);break;
                             }
                         }
                     @Override
@@ -132,8 +123,13 @@ public class editor extends AppCompatActivity implements Serializable {
     void openAndEdit() throws FileNotFoundException {
         file = (File) getIntent().getSerializableExtra("FILE");
         sharedPreferences = getPreferences(MODE_PRIVATE);
-        title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize()));
-        text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize()));
+      Log.e("TitleSizeText", String.valueOf(sharedPreferences.getFloat("TitleSize", title.getTextSize())));
+        Log.e("TextSizeText", String.valueOf(sharedPreferences.getFloat("TitleSize", title.getTextSize())));
+        title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize())/1.75f);
+        text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
+        //1.75
+        Log.e("TitleSizeText1", String.valueOf(sharedPreferences.getFloat("TitleSize", title.getTextSize())));
+        Log.e("TextSizeText1", String.valueOf(sharedPreferences.getFloat("TitleSize", title.getTextSize())));
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder content = new StringBuilder();
