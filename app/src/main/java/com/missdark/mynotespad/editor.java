@@ -178,6 +178,7 @@ public class editor extends AppCompatActivity implements Serializable {
 
 //TODO СТИЛИ ТЕКСТА, КУРСИВ ЖИРНЫЙ ПОДЧЁРКНУТЫЙ И ЗАЧЁРКНУТЫЙ
     //TODO ЧАТ БОТ ИИ
+//TODO темы для блокнота
     void clear(){
         title.setText("");
         text.setText("");
