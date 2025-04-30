@@ -116,16 +116,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        System.exit(0);
+        MainActivity.this.finish();
+
     }
 
     void deleteFile(){
         file.delete();
     }
-// !!!========================!!! ЮЗАТЬ ЗАПРОС, ЕСЛИ НЕТУ ИДЕЙ ИЛИ НИЧЕГО НЕ ВЫХОДИТ !!!=================================!!!!
-    /*Короче братан, задача, у меня в коде есть класс BaseAdapter,
-    у меня есть метод onContextItemSelected() для него нужно реализовать открытие текстового файла по нажатию на айтем*/
-// !!!===================================================================================================================!!!!
+
     //    private void updateList () {
 
     /// /        myAdapter.setArrayMyData(mDBConnector.selectAll());
