@@ -112,6 +112,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         });
     }
 
+    //TODO сделать нормальную обработку кнопки назад
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);
+    }
+
     void deleteFile(){
         file.delete();
     }
