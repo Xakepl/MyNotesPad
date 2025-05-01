@@ -110,13 +110,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        MainActivity.this.finish();
-        System.exit(0);
+        this.finishAffinity();
+
     }
 
     void deleteFile(){
+        file.delete();
         mDBConnector.delete(mlistView.getSelectedItemId());
-        file.debil();
     }
 
     //    private void updateList () {
