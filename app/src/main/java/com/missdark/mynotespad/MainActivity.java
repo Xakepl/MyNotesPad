@@ -60,21 +60,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             intent.putExtra("FILE", file);
             startActivity(intent);
         });
-//        mlistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                builder.setTitle("Подтвердите удаление: ")
-//                        .setPositiveButton("OK", (dialog, which) ->{mDBConnector.delete(mlistView.getSelectedItemId());
-//                            deleteFile();
-//                        })
-//                        //TODO сделать удаление файла!!!!!!!
-//                        .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//                return false;
-//            }
-//        });
+        mlistView.setOnItemLongClickListener((parent, view, position, id) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Подтвердите удаление: ")
+                    .setPositiveButton("OK", (dialog, which) -> deleteFile())
+                    //TODO сделать удаление файла!!!!!!!
+                    .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            return false;
+        });
 
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
@@ -112,16 +107,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         });
     }
 
-    //TODO сделать нормальную обработку кнопки назад
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         MainActivity.this.finish();
-
+        System.exit(0);
     }
 
     void deleteFile(){
-        file.delete();
+        mDBConnector.delete(mlistView.getSelectedItemId());
+        file.debil();
     }
 
     //    private void updateList () {
