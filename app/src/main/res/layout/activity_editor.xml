@@ -101,18 +101,19 @@
 
         <Spinner
             android:id="@+id/font_size"
-            android:layout_width="wrap_content"
+            android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="20dp"
-            android:layout_weight="0.1"
+            android:layout_weight="1"
             android:background="#978989"
             android:backgroundTint="#A1A1A1"
             android:entries="@array/FontSize" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/textStyle"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_weight="1"
             app:srcCompat="@drawable/icfont" />
 
     </LinearLayout>

@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class editor extends AppCompatActivity implements Serializable {
     ImageView save;
     ImageView back;
     ImageView clear;
+    ImageView sttext;
     String strText;
     File file;
     Spinner FSspinner;
@@ -47,6 +50,7 @@ public class editor extends AppCompatActivity implements Serializable {
             back = findViewById(R.id.back);
             clear = findViewById(R.id.clear);
             FSspinner = findViewById(R.id.font_size);
+            sttext = findViewById(R.id.textStyle);
 
             back.setOnClickListener(v -> {
                 save();
@@ -63,6 +67,14 @@ public class editor extends AppCompatActivity implements Serializable {
                     throw new RuntimeException(e);
                 }
             }
+
+            sttext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
 
             title.setOnClickListener(v -> {
                 FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -117,6 +129,8 @@ public class editor extends AppCompatActivity implements Serializable {
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
             });
+
+
 
         }
 
@@ -189,6 +203,29 @@ public class editor extends AppCompatActivity implements Serializable {
     protected void onPause() {
         super.onPause();
         save();
+    }
+
+    private void showPopupMenu(View v){
+        PopupMenu ppmn = new PopupMenu(this, v);
+        ppmn.inflate(R.menu.popupmenu);
+        ppmn.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()){
+                case R.id.menu1:
+                    //Передать Жирный
+                    return true;
+
+                case R.id.menu2:
+                    //Передать Курсив
+                    return true;
+
+                case R.id.menu3:
+                    //Передать подчеркнутый
+                    return true;
+
+                default:  return false;
+            }
+        });
+
     }
 
     //https://clck.ru/3LbU9c
