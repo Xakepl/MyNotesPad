@@ -1,12 +1,13 @@
 package com.missdark.mynotespad;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,6 +40,8 @@ public class editor extends AppCompatActivity implements Serializable {
     ImageView sttext;
     String strText;
     File file;
+
+    MaterialToolbar mtlbr;
     Spinner FSspinner;
 
     @Override
@@ -51,7 +56,7 @@ public class editor extends AppCompatActivity implements Serializable {
             clear = findViewById(R.id.clear);
             FSspinner = findViewById(R.id.font_size);
             sttext = findViewById(R.id.textStyle);
-
+            mtlbr = findViewById(R.id.materialToolbar);
             back.setOnClickListener(v -> {
                 save();
                 Intent i = new Intent(editor.this, MainActivity.class);
@@ -71,7 +76,16 @@ public class editor extends AppCompatActivity implements Serializable {
             sttext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                }
+            });
 
+            mtlbr.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus){
+                        hideKeyboardForTitle(v);
+                        hideKeyboardForText(v);
+                    }
                 }
             });
 
@@ -128,9 +142,8 @@ public class editor extends AppCompatActivity implements Serializable {
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
+
             });
-
-
 
         }
 
@@ -190,6 +203,16 @@ public class editor extends AppCompatActivity implements Serializable {
         }
     }
 
+    public void hideKeyboardForTitle(View  v){
+        InputMethodManager imn = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imn.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+    public void hideKeyboardForText(View v){
+        InputMethodManager imn = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imn.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+
 //TODO СТИЛИ ТЕКСТА, КУРСИВ ЖИРНЫЙ ПОДЧЁРКНУТЫЙ И ЗАЧЁРКНУТЫЙ
     //TODO ЧАТ БОТ ИИ
 //TODO темы для блокнота
@@ -209,24 +232,25 @@ public class editor extends AppCompatActivity implements Serializable {
         PopupMenu ppmn = new PopupMenu(this, v);
         ppmn.inflate(R.menu.popupmenu);
         ppmn.setOnMenuItemClickListener(item -> {
-            switch (item.getItemId()){
-                case R.id.menu1:
-                    //Передать Жирный
-                    return true;
+            if (item.getItemId() == R.id.menu1) {
+                //Передать Жирный
+                return true;
+            }
 
-                case R.id.menu2:
+            else if (item.getItemId() == R.id.menu2)
                     //Передать Курсив
                     return true;
 
-                case R.id.menu3:
+            else if (item.getItemId() == R.id.menu3)
                     //Передать подчеркнутый
                     return true;
 
-                default:  return false;
-            }
+                else  return false;
         });
 
     }
+
+
 
     //https://clck.ru/3LbU9c
     //смена шрифтов

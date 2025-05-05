@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     File file;
     ListView mlistView;
     enum Status {OPENFILEANDEDIT, CREATNEW}
-
     Status def = Status.CREATNEW; //по дефолту
 
     @Override
@@ -105,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+
     }
 
     @Override
@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //    }
 
     // TODO Сделать разметки под разные разметки экранов!!!!!!!!!!!!!
-
 
     static class myListAdapter extends BaseAdapter {
         private final LayoutInflater mLayoutInflater;
