@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.io.BufferedReader;
@@ -150,13 +149,9 @@ public class editor extends AppCompatActivity implements Serializable {
     void openAndEdit() throws FileNotFoundException {
         file = (File) getIntent().getSerializableExtra("FILE");
         sharedPreferences = getPreferences(MODE_PRIVATE);
-      Log.e("TitleSizeText", String.valueOf(sharedPreferences.getFloat("TitleSize", title.getTextSize())));
-        Log.e("TextSizeText", String.valueOf(sharedPreferences.getFloat("TitleSize", title.getTextSize())));
         title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize())/1.75f);
         text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
         //1.75
-        Log.e("TitleSizeText1", String.valueOf(sharedPreferences.getFloat("TitleSize", title.getTextSize())));
-        Log.e("TextSizeText1", String.valueOf(sharedPreferences.getFloat("TitleSize", title.getTextSize())));
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder content = new StringBuilder();
@@ -236,11 +231,9 @@ public class editor extends AppCompatActivity implements Serializable {
                 //Передать Жирный
                 return true;
             }
-
             else if (item.getItemId() == R.id.menu2)
                     //Передать Курсив
                     return true;
-
             else if (item.getItemId() == R.id.menu3)
                     //Передать подчеркнутый
                     return true;
@@ -254,5 +247,4 @@ public class editor extends AppCompatActivity implements Serializable {
 
     //https://clck.ru/3LbU9c
     //смена шрифтов
-
 }
