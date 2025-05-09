@@ -66,4 +66,21 @@
 
     </ListView>
 
+    <ImageButton
+        android:id="@+id/themeBTN"
+        style="@android:style/Widget.Holo.Light.ImageButton"
+        android:layout_width="40dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="367dp"
+        android:layout_marginBottom="30dp"
+        android:background="@null"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/textV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/theme" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
