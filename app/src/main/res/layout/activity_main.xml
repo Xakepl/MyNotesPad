@@ -45,6 +45,7 @@
 
     <ListView
         android:id="@+id/list"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="345dp"
         android:layout_height="0dp"
         android:layout_marginStart="33dp"
@@ -52,7 +53,10 @@
         android:layout_marginBottom="40dp"
         android:background="@drawable/gray"
         android:defaultFocusHighlightEnabled="true"
-        android:foregroundGravity="center"
+        android:paddingStart="5dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

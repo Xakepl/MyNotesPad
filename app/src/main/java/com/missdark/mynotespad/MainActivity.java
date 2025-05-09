@@ -1,5 +1,6 @@
 package com.missdark.mynotespad;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,13 +35,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ListView mlistView;
     enum Status {OPENFILEANDEDIT, CREATNEW}
     Status def = Status.CREATNEW; //по дефолту
+    private ArrayList<Projects> arrayMyP;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         String strDate = sdf.format(c.getTime());
         Log.d("Date", "DATE : " + strDate);
 //        mContext = this;
@@ -51,6 +55,22 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //        mDBConnector.deleteAll();
 // !=========================================================================================================!
         mlistView.setAdapter(myAdapter);
+        mlistView.setOnItemLongClickListener((parent, view, position, id) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Подтвердите удаление: ")
+                    .setPositiveButton("OK", (dialog, which) -> {
+//                        Log.e("FILE_onLongClick", file.toString());
+                        Log.e("ID_onLongClick", "" + id);
+                        file = new File(getFilesDir(), mDBConnector.select(id).getName() + ".txt");
+                        deleteFile(file, id);
+                        //                        mlistView.remove();
+                    })
+                    //TODO сделать удаление файла!!!!!!!
+                    .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            return false;
+        });
         mlistView.setOnItemClickListener((parent, view, position, id) -> {
             Toast.makeText(MainActivity.this, "Выбран: " + mDBConnector.select(id).getName(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, editor.class);
@@ -59,16 +79,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             intent.putExtra("FILE", file);
             startActivity(intent);
         });
-        mlistView.setOnItemLongClickListener((parent, view, position, id) -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Подтвердите удаление: ")
-                    .setPositiveButton("OK", (dialog, which) -> deleteFile())
-                    //TODO сделать удаление файла!!!!!!!
-                    .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
-            AlertDialog dialog = builder.create();
-            dialog.show();
-            return false;
-        });
+
 
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
@@ -111,12 +122,21 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     public void onBackPressed() {
         super.onBackPressed();
         this.finishAffinity();
-
     }
 
-    void deleteFile(){
-        file.delete();
-        mDBConnector.delete(mlistView.getSelectedItemId());
+    void deleteFile(@NonNull File file, long id){
+        Log.e("FILE", file.toString());
+        Log.e("ID", "" + id);
+        try {
+            if (file.delete()) {
+                mDBConnector.delete(mlistView.getSelectedItemId());
+               // myAdapter.getArrayMyData().remove((int)id);
+            }
+            else{Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();}
+        } catch (Exception e) {
+            Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();
+            throw new RuntimeException(e);
+        }
     }
 
     //    private void updateList () {
@@ -129,22 +149,22 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     static class myListAdapter extends BaseAdapter {
         private final LayoutInflater mLayoutInflater;
-        private ArrayList<Projects> arrayMyMatches;
+        private ArrayList<Projects> arrayMyProjects;
 
         public myListAdapter(Context ctx, ArrayList<Projects> arr) {
             mLayoutInflater = LayoutInflater.from(ctx);
             setArrayMyData(arr);
         }
 
-        //    public ArrayList<Projects> getArrayMyData() {
-//        return arrayMyMatches;
-//    }
+            public ArrayList<Projects> getArrayMyData() {
+                return arrayMyProjects;
+     }
         public void setArrayMyData(ArrayList<Projects> arrayMyData) {
-            this.arrayMyMatches = arrayMyData;
+            this.arrayMyProjects = arrayMyData;
         }
 
         public int getCount() {
-            return arrayMyMatches.size();
+            return arrayMyProjects.size();
         }
 
         public Object getItem(int position) {
@@ -152,10 +172,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         }
 
         public long getItemId(int position) {
-            Projects md = arrayMyMatches.get(position);
+            Projects md = arrayMyProjects.get(position);
             if (md != null)
                 return md.getId();
             return 0;
+        }
+
+        void remove(long id){
+            arrayMyProjects.remove(id);
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -164,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             TextView name = convertView.findViewById(R.id.name);
             TextView path = convertView.findViewById(R.id.path);
             TextView data = convertView.findViewById(R.id.data);
-            Projects md = arrayMyMatches.get(position);
+            Projects md = arrayMyProjects.get(position);
             name.setText(md.getName());
             path.setText(md.getPath());
             data.setText(md.getDate());
