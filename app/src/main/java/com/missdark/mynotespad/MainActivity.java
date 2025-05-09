@@ -3,6 +3,7 @@ package com.missdark.mynotespad;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,9 +36,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     File file;
     ListView mlistView;
     enum Status {OPENFILEANDEDIT, CREATNEW}
-    Status def = Status.CREATNEW; //по дефолту
-    private ArrayList<Projects> arrayMyP;
+    enum Themes {RED, ORANGE, YELLOW, GREEN, LTBLUE, BlUE, PURPLE, PINK, GREY, SYSTEM  }
 
+    Status def = Status.CREATNEW; //по дефолт
+    Themes thm = Themes.GREY;
+    ImageButton theme;
 
 
     @Override
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //        mDBConnector.deleteAll();
 // !=========================================================================================================!
         mlistView.setAdapter(myAdapter);
+        // =========================================== Лист ==============================================================================!!!!
         mlistView.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Подтвердите удаление: ")
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             startActivity(intent);
         });
 
+        // =========================================== Создание заметки ==============================================================================!!!!
 
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
@@ -116,6 +122,25 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             dialog.show();
         });
 
+        // =========================================== Темы ==============================================================================!!!!
+        theme = findViewById(R.id.themeBTN);
+        theme.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Выберите тему: ")
+                    .setMessage("coming soon")
+                    .setPositiveButton("Ок", (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton("Красный", (dialog, which) -> {
+                        //#db6456
+                        mlistView.setBackgroundColor(Color.parseColor("#db6456"));
+
+                    })
+                    .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+        //TODO Бахнуть пока что смену цвета +сохранение (json?)
+
+
     }
 
     @Override
@@ -130,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         try {
             if (file.delete()) {
                 mDBConnector.delete(mlistView.getSelectedItemId());
+                myAdapter.remove(id);
                // myAdapter.getArrayMyData().remove((int)id);
             }
             else{Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();}
@@ -140,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }
 
     //    private void updateList () {
-
     /// /        myAdapter.setArrayMyData(mDBConnector.selectAll());
     /// /        myAdapter.notifyDataSetChanged();
 //    }
@@ -156,9 +181,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             setArrayMyData(arr);
         }
 
-            public ArrayList<Projects> getArrayMyData() {
-                return arrayMyProjects;
-     }
+//            public ArrayList<Projects> getArrayMyData() {
+//                return arrayMyProjects;
+//     }
         public void setArrayMyData(ArrayList<Projects> arrayMyData) {
             this.arrayMyProjects = arrayMyData;
         }
