@@ -72,11 +72,7 @@ public class editor extends AppCompatActivity implements Serializable {
                 }
             }
 
-            sttext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            });
+            sttext.setOnClickListener(v -> showPopupMenu(v));
 
             mtlbr.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
