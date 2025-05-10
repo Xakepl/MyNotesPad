@@ -112,12 +112,11 @@ public class editor extends AppCompatActivity implements Serializable {
                 FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        switch (FSspinner.getSelectedItem().toString()) {
+                        switch (FStyleSpinner.getSelectedItem().toString()) {
                             case "Обычный":title.setTypeface(null, Typeface.NORMAL);break;
                             case "Жирный":title.setTypeface(null, Typeface.BOLD);break;
                             case "Курсив":title.setTypeface(null, Typeface.ITALIC);break;
                             case "Жирный курсив":title.setTypeface(null, Typeface.BOLD_ITALIC);break;
-
                         }
                     }
                     @Override
@@ -151,6 +150,19 @@ public class editor extends AppCompatActivity implements Serializable {
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
+                FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        switch (FStyleSpinner.getSelectedItem().toString()) {
+                            case "Обычный":text.setTypeface(null, Typeface.NORMAL);break;
+                            case "Жирный":text.setTypeface(null, Typeface.BOLD);break;
+                            case "Курсив":text.setTypeface(null, Typeface.ITALIC);break;
+                            case "Жирный курсив":text.setTypeface(null, Typeface.BOLD_ITALIC);break;
+                        }
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
 
             });
 
@@ -161,6 +173,7 @@ public class editor extends AppCompatActivity implements Serializable {
         sharedPreferences = getPreferences(MODE_PRIVATE);
         title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize())/1.75f);
         text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
+
         //1.75
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -189,6 +202,10 @@ public class editor extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor seditor = sharedPreferences.edit();
         seditor.putFloat("TitleSize", title.getTextSize());
         seditor.putFloat("TextSize", text.getTextSize());
+//        seditor.put("TitleTypeface", title.getTypeface());
+//        seditor.put("TextTypeface", text.getTypeface());
+
+
         seditor.apply();
         file = (File) getIntent().getSerializableExtra("FILE");
         strTitle = title.getText().toString();

@@ -128,15 +128,35 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Выберите тему: ")
                     .setMessage("coming soon")
-                    .setPositiveButton("Красный", (dialog, which) -> {
+                    .setNeutralButton("Красный", (dialog, which) -> {
                         //#db6456
                         mlistView.setBackgroundColor(Color.parseColor("#db6456"));
                         //Передача кода цвета в json
                     })
-                    .setNeutralButton("Оранжевый", (dialog, which) -> {
-                        mlistView.setBackgroundColor(Color.parseColor("#db6456"));
-                        //Передача кода цвета в json
-                    })
+//                    .setNeutralButton("Оранжевый", (dialog, which) -> {
+//                        mlistView.setBackgroundColor(Color.parseColor("#FFC067"));
+//                        //Передача кода цвета в json
+//                    })
+//                    .setNeutralButton("Жёлтый", (dialog, which) -> {
+//                        mlistView.setBackgroundColor(Color.parseColor("#FFEE8C"));
+//
+//                    })
+//                    .setNeutralButton("Зелёный", (dialog, which) -> {
+//                        mlistView.setBackgroundColor(Color.parseColor("#77dd77"));
+//
+//                    })
+//                    .setNeutralButton("Голубой", (dialog, which) -> {
+//                        mlistView.setBackgroundColor(Color.parseColor("#aec6cf"));
+//
+//                    })
+//                    .setNeutralButton("Синий", (dialog, which) -> {
+//                        mlistView.setBackgroundColor(Color.parseColor("#5D9B9B"));
+//
+//                    })
+//                    .setNeutralButton("Фиолетовый", (dialog, which) -> {
+//                        mlistView.setBackgroundColor(Color.parseColor("#A18594"));
+//
+//                    })
                     .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
