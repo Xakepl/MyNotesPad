@@ -81,6 +81,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
+            android:background="#978989"
+            android:backgroundTint="#A1A1A1"
+            android:entries="@array/FontTypeface"
             android:paddingEnd="20dp" />
 
     </LinearLayout>
