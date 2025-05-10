@@ -67,17 +67,21 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="#978989"
             android:backgroundTint="#A1A1A1"
-            android:entries="@array/FontSize" />
+            android:entries="@array/FontSize"
+            android:paddingEnd="10dp" />
 
-        <ImageView
-            android:id="@+id/textStyle"
+        <Spinner
+            android:id="@+id/style"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/icfont" />
+            android:paddingEnd="20dp" />
 
     </LinearLayout>
 
