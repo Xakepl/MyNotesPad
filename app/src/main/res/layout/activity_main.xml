@@ -73,14 +73,29 @@
         android:layout_height="32dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="367dp"
+        android:layout_marginBottom="30dp"
+        android:background="@null"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/textV"
+        app:layout_constraintEnd_toStartOf="@+id/botBTN"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/theme" />
+
+    <ImageButton
+        android:id="@+id/botBTN"
+        android:layout_width="40dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="316dp"
         android:layout_marginBottom="30dp"
         android:background="@null"
         android:tint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/textV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/theme" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/bot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
