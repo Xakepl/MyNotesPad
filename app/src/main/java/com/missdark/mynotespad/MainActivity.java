@@ -59,16 +59,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //        mDBConnector.deleteAll();
 // !=========================================================================================================!
         mlistView.setAdapter(myAdapter);
-        // =========================================== Лист ==============================================================================!!!!
+        // ===========================================| Лист |==============================================================================!!!!
+        // ----------------------------------------------------| Удаление |-----------------------------------------------------
         mlistView.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Подтвердите удаление: ")
+            builder.setTitle("Подтвердите удаление содержимого файла: ") //удаления файла должно быть, но его нету
                     .setPositiveButton("OK", (dialog, which) -> {
-//                        Log.e("FILE_onLongClick", file.toString());
-                        Log.e("ID_onLongClick", "" + id);
                         file = new File(getFilesDir(), mDBConnector.select(id).getName() + ".txt");
                         deleteFile(file, id);
-                        //                        mlistView.remove();
                     })
                     //TODO сделать удаление файла!!!!!!!
                     .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
@@ -76,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             dialog.show();
             return false;
         });
+        // ----------------------------------------------------| Выбор |-----------------------------------------------------
+        //не угадал, я литий
         mlistView.setOnItemClickListener((parent, view, position, id) -> {
             Toast.makeText(MainActivity.this, "Выбран: " + mDBConnector.select(id).getName(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, editor.class);
@@ -128,18 +128,20 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Выберите тему: ")
                     .setMessage("coming soon")
-                    .setPositiveButton("Ок", (dialog, which) -> dialog.dismiss())
                     .setPositiveButton("Красный", (dialog, which) -> {
                         //#db6456
                         mlistView.setBackgroundColor(Color.parseColor("#db6456"));
-
+                        //Передача кода цвета в json
+                    })
+                    .setNeutralButton("Оранжевый", (dialog, which) -> {
+                        mlistView.setBackgroundColor(Color.parseColor("#db6456"));
+                        //Передача кода цвета в json
                     })
                     .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
         });
         //TODO Бахнуть пока что смену цвета +сохранение (json?)
-
 
     }
 

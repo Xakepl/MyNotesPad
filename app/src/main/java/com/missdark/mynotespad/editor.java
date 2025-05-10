@@ -3,6 +3,7 @@ package com.missdark.mynotespad;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class editor extends AppCompatActivity implements Serializable {
-
     private SharedPreferences sharedPreferences;
     EditText title;
     String strTitle;
@@ -42,6 +42,8 @@ public class editor extends AppCompatActivity implements Serializable {
 
     MaterialToolbar mtlbr;
     Spinner FSspinner;
+    Spinner FStyleSpinner;
+
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class editor extends AppCompatActivity implements Serializable {
             back = findViewById(R.id.back);
             clear = findViewById(R.id.clear);
             FSspinner = findViewById(R.id.font_size);
-            sttext = findViewById(R.id.textStyle);
+            FStyleSpinner = findViewById(R.id.style);
             mtlbr = findViewById(R.id.materialToolbar);
             back.setOnClickListener(v -> {
                 save();
@@ -72,15 +74,10 @@ public class editor extends AppCompatActivity implements Serializable {
                 }
             }
 
-            sttext.setOnClickListener(v -> showPopupMenu(v));
-
-            mtlbr.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(hasFocus){
-                        hideKeyboardForTitle(v);
-                        hideKeyboardForText(v);
-                    }
+            mtlbr.setOnFocusChangeListener((v, hasFocus) -> {
+                if(hasFocus){
+                    hideKeyboardForTitle(v);
+                    hideKeyboardForText(v);
                 }
             });
 
@@ -110,6 +107,23 @@ public class editor extends AppCompatActivity implements Serializable {
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {}
+                });
+
+                FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        switch (FSspinner.getSelectedItem().toString()) {
+                            case "Обычный":title.setTypeface(null, Typeface.NORMAL);break;
+                            case "Жирный":title.setTypeface(null, Typeface.BOLD);break;
+                            case "Курсив":title.setTypeface(null, Typeface.ITALIC);break;
+                            case "Жирный курсив":title.setTypeface(null, Typeface.BOLD_ITALIC);break;
+
+                        }
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
                 });
             });
             text.setOnClickListener(v -> {
@@ -219,25 +233,6 @@ public class editor extends AppCompatActivity implements Serializable {
         save();
     }
 
-    private void showPopupMenu(View v){
-        PopupMenu ppmn = new PopupMenu(this, v);
-        ppmn.inflate(R.menu.popupmenu);
-        ppmn.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.menu1) {
-                //Передать Жирный
-                return true;
-            }
-            else if (item.getItemId() == R.id.menu2)
-                    //Передать Курсив
-                    return true;
-            else if (item.getItemId() == R.id.menu3)
-                    //Передать подчеркнутый
-                    return true;
-
-                else  return false;
-        });
-
-    }
 
 
 
