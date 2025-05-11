@@ -173,6 +173,8 @@ public class editor extends AppCompatActivity implements Serializable {
         sharedPreferences = getPreferences(MODE_PRIVATE);
         title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize())/1.75f);
         text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
+//        title.setTypeface(null, sharedPreferences.get("TitleSize", title.getTextSize())/1.75f);
+//        text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
 
         //1.75
         try {
@@ -202,8 +204,10 @@ public class editor extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor seditor = sharedPreferences.edit();
         seditor.putFloat("TitleSize", title.getTextSize());
         seditor.putFloat("TextSize", text.getTextSize());
-//        seditor.put("TitleTypeface", title.getTypeface());
-//        seditor.put("TextTypeface", text.getTypeface());
+        Log.e("TtlTypeface", title.getTypeface().toString());
+        Log.e("TxtTypeface", text.getTypeface().toString());
+//        seditor.putString("TitleTypeface", title.getTypeface().toString());
+//        seditor.putString("TextTypeface", text.getTypeface().toString());
 
 
         seditor.apply();

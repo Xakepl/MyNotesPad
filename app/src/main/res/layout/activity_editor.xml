@@ -14,6 +14,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/ltgray"
+        android:backgroundTint="#5DB6A5"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -70,7 +71,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="#978989"
-            android:backgroundTint="#A1A1A1"
+            android:backgroundTint="#5DB6A5"
             android:entries="@array/FontSize"
             android:paddingEnd="10dp" />
 
@@ -82,7 +83,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="#978989"
-            android:backgroundTint="#A1A1A1"
+            android:backgroundTint="#5DB6A5"
             android:entries="@array/FontTypeface"
             android:paddingEnd="20dp" />
 
@@ -95,6 +96,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/ltgray"
+        android:backgroundTint="#5DB6A5"
         android:ems="10"
         android:hint="Заголовок"
         android:inputType="text"
@@ -115,6 +117,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/gray"
+        android:backgroundTint="#315B53"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
