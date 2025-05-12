@@ -44,7 +44,6 @@ public class editor extends AppCompatActivity implements Serializable {
     Spinner FSspinner;
     Spinner FStyleSpinner;
 
-
     @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -174,7 +173,7 @@ public class editor extends AppCompatActivity implements Serializable {
         title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize())/1.75f);
         text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
 //        title.setTypeface(null, sharedPreferences.get("TitleSize", title.getTextSize())/1.75f);
-//        text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
+//        text.setTypeeface(null, sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
 
         //1.75
         try {
@@ -204,11 +203,10 @@ public class editor extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor seditor = sharedPreferences.edit();
         seditor.putFloat("TitleSize", title.getTextSize());
         seditor.putFloat("TextSize", text.getTextSize());
-        Log.e("TtlTypeface", title.getTypeface().toString());
-        Log.e("TxtTypeface", text.getTypeface().toString());
-//        seditor.putString("TitleTypeface", title.getTypeface().toString());
-//        seditor.putString("TextTypeface", text.getTypeface().toString());
-
+//        seditor.putInt("TitleTypeface", title.getTypeface().getStyle());
+//        seditor.putInt("TextTypeface", text.getTypeface().getStyle());
+        Log.e("TitleTypeface", "" + title.getTypeface().getStyle());
+        Log.e("TextTypeface", "" + text.getTypeface().getStyle());
 
         seditor.apply();
         file = (File) getIntent().getSerializableExtra("FILE");
