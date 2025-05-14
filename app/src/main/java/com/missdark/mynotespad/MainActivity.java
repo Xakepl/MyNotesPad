@@ -27,6 +27,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity implements Serializable {
@@ -37,9 +38,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ListView mlistView;
     enum Status {OPENFILEANDEDIT, CREATNEW}
     enum Themes {RED, ORANGE, YELLOW, GREEN, LTBLUE, BlUE, PURPLE, PINK, GREY, SYSTEM  }
+    HashMap<String, Integer>Themes;
 
     Status def = Status.CREATNEW; //по дефолт
-    Themes thm = Themes.GREY;
+   // Themes thm = Themes.GREY;
     ImageButton theme;
 
 
