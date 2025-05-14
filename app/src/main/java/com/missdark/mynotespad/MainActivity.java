@@ -38,7 +38,18 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ListView mlistView;
     enum Status {OPENFILEANDEDIT, CREATNEW}
     enum Themes {RED, ORANGE, YELLOW, GREEN, LTBLUE, BlUE, PURPLE, PINK, GREY, SYSTEM  }
-    HashMap<String, Integer>Themes;
+    HashMap<String, Integer> Themes = new HashMap<String, Integer>(){{
+        put("Red", Color.parseColor("#db6456"));
+        put("Orange", Color.parseColor("#ff964f"));
+        put("Yellow", Color.parseColor("#fffd74"));
+        put("Green", Color.parseColor("#b0ff9d"));
+        put("LtBlue", Color.parseColor("#a2bffe"));
+        put("Blue", Color.parseColor("#19789c"));
+        put("Purple", Color.parseColor("#b19cd9"));
+        put("Pink", Color.parseColor("#dea5a4"));
+        put("Gray", Color.parseColor("#a1a18c"));
+        put("Choco Loco", Color.parseColor("#7d5f53"));
+    }};
 
     Status def = Status.CREATNEW; //по дефолт
    // Themes thm = Themes.GREY;
@@ -50,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Calendar c = Calendar.getInstance();
+
+
+
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         String strDate = sdf.format(c.getTime());
         Log.d("Date", "DATE : " + strDate);
@@ -87,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             startActivity(intent);
         });
 
-        // =========================================== Создание заметки ==============================================================================!!!!
+        // ===========================================| Создание заметки |==============================================================================!!!!
 
         create = findViewById(R.id.create);
         create.setOnClickListener(v -> {
@@ -124,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             dialog.show();
         });
 
-        // =========================================== Темы ==============================================================================!!!!
+        // ===========================================| Темы |==============================================================================!!!!
         theme = findViewById(R.id.themeBTN);
         theme.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -132,8 +146,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     .setMessage("coming soon")
                     .setNeutralButton("Красный", (dialog, which) -> {
                         //#db6456
-                        mlistView.setBackgroundColor(Color.parseColor("#db6456"));
-                        //Передача кода цвета в json
+                        mlistView.setBackgroundColor(Themes.get("Red"));
                     })
 //                    .setNeutralButton("Оранжевый", (dialog, which) -> {
 //                        mlistView.setBackgroundColor(Color.parseColor("#FFC067"));
