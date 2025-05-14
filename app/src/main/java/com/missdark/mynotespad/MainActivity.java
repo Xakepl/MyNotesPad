@@ -2,7 +2,9 @@ package com.missdark.mynotespad;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements Serializable {
@@ -37,8 +40,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     File file;
     ListView mlistView;
     enum Status {OPENFILEANDEDIT, CREATNEW}
-    enum Themes {RED, ORANGE, YELLOW, GREEN, LTBLUE, BlUE, PURPLE, PINK, GREY, SYSTEM  }
-    HashMap<String, Integer> Themes = new HashMap<String, Integer>(){{
+    SharedPreferences t;
+    String[] ThemesName = {"Red", "Orange", "Yellow", "Green", "LtBlue", "Blue", "Purple", "Pink", "Gray", "Choco Loco"};
+    HashMap<String, Integer> themes = new HashMap<String, Integer>(){{
         put("Red", Color.parseColor("#db6456"));
         put("Orange", Color.parseColor("#ff964f"));
         put("Yellow", Color.parseColor("#fffd74"));
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }};
 
     Status def = Status.CREATNEW; //по дефолт
-   // Themes thm = Themes.GREY;
+    int thm;
     ImageButton theme;
 
 
@@ -61,15 +65,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Calendar c = Calendar.getInstance();
-
-
-
+        t = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor st = t.edit();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         String strDate = sdf.format(c.getTime());
         Log.d("Date", "DATE : " + strDate);
-//        mContext = this;
         mDBConnector = new ProjectsDB(this);
         mlistView = findViewById(R.id.list);
+//        thm = mlistView.getBackground();
         myAdapter = new myListAdapter(this, mDBConnector.selectAll());
 // !!!!!!!!!!!!!!!!!=========== ВНИМАНИЕ, ИСПОЛЬЗОВАТЬ В СЛУЧАЕ ОЧИСТКИ =====================!!!!!!!!!!!!!!!!!
 //        mDBConnector.deleteAll();
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             file = new File(getFilesDir(), mDBConnector.select(id).getName() + ".txt");
             intent.putExtra("STATE", Status.OPENFILEANDEDIT);
             intent.putExtra("FILE", file);
+            intent.putExtra("Theme", thm);
             startActivity(intent);
         });
 
@@ -128,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 mDBConnector.insert(inputText, strDate, file.getPath());
                                 intent.putExtra("FILE", file);
                                 intent.putExtra("STATE", def);
+                                intent.putExtra("", thm);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT).show();
@@ -143,41 +148,18 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         theme.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Выберите тему: ")
-                    .setMessage("coming soon")
-                    .setNeutralButton("Красный", (dialog, which) -> {
-                        //#db6456
-                        mlistView.setBackgroundColor(Themes.get("Red"));
-                    })
-//                    .setNeutralButton("Оранжевый", (dialog, which) -> {
-//                        mlistView.setBackgroundColor(Color.parseColor("#FFC067"));
-//                        //Передача кода цвета в json
-//                    })
-//                    .setNeutralButton("Жёлтый", (dialog, which) -> {
-//                        mlistView.setBackgroundColor(Color.parseColor("#FFEE8C"));
-//
-//                    })
-//                    .setNeutralButton("Зелёный", (dialog, which) -> {
-//                        mlistView.setBackgroundColor(Color.parseColor("#77dd77"));
-//
-//                    })
-//                    .setNeutralButton("Голубой", (dialog, which) -> {
-//                        mlistView.setBackgroundColor(Color.parseColor("#aec6cf"));
-//
-//                    })
-//                    .setNeutralButton("Синий", (dialog, which) -> {
-//                        mlistView.setBackgroundColor(Color.parseColor("#5D9B9B"));
-//
-//                    })
-//                    .setNeutralButton("Фиолетовый", (dialog, which) -> {
-//                        mlistView.setBackgroundColor(Color.parseColor("#A18594"));
-//
-//                    })
-                    .setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+                    .setItems(ThemesName, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            thm = themes.get(ThemesName[which]);
+                            Log.e("x", "" + thm);
+                            mlistView.setBackgroundColor(thm);
+                            st.putInt("Themes", thm);
+                        }
+                    }).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
         });
-        //TODO Бахнуть пока что смену цвета +сохранение (json?)
-
     }
 
     @Override
@@ -201,12 +183,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             throw new RuntimeException(e);
         }
     }
-
-    //    private void updateList () {
-    /// /        myAdapter.setArrayMyData(mDBConnector.selectAll());
-    /// /        myAdapter.notifyDataSetChanged();
-//    }
-
     // TODO Сделать разметки под разные разметки экранов!!!!!!!!!!!!!
 
     static class myListAdapter extends BaseAdapter {
@@ -217,10 +193,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             mLayoutInflater = LayoutInflater.from(ctx);
             setArrayMyData(arr);
         }
-
-//            public ArrayList<Projects> getArrayMyData() {
-//                return arrayMyProjects;
-//     }
         public void setArrayMyData(ArrayList<Projects> arrayMyData) {
             this.arrayMyProjects = arrayMyData;
         }

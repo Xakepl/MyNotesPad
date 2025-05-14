@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.GenericArrayType;
 
 public class editor extends AppCompatActivity implements Serializable {
     private SharedPreferences sharedPreferences;
@@ -39,7 +40,7 @@ public class editor extends AppCompatActivity implements Serializable {
     ImageView sttext;
     String strText;
     File file;
-
+    SharedPreferences th;
     MaterialToolbar mtlbr;
     Spinner FSspinner;
     Spinner FStyleSpinner;
@@ -48,6 +49,7 @@ public class editor extends AppCompatActivity implements Serializable {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_editor);
+            th = getPreferences(MODE_PRIVATE);
             title = findViewById(R.id.titleText);
             text = findViewById(R.id.textC);
             save = findViewById(R.id.save);
@@ -57,6 +59,8 @@ public class editor extends AppCompatActivity implements Serializable {
             FSspinner = findViewById(R.id.font_size);
             FStyleSpinner = findViewById(R.id.style);
             mtlbr = findViewById(R.id.materialToolbar);
+            th.getInt("Theme", getIntent().getIntExtra("Themes", 1));
+
             back.setOnClickListener(v -> {
                 save();
                 Intent i = new Intent(editor.this, MainActivity.class);
