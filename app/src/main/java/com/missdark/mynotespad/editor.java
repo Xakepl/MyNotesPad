@@ -37,7 +37,6 @@ public class editor extends AppCompatActivity implements Serializable {
     ImageView save;
     ImageView back;
     ImageView clear;
-    ImageView sttext;
     String strText;
     File file;
     SharedPreferences th;

@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Calendar c = Calendar.getInstance();
         t = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor st = t.edit();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         String strDate = sdf.format(c.getTime());
         Log.d("Date", "DATE : " + strDate);
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             thm = themes.get(ThemesName[which]);
                             Log.e("x", "" + thm);
                             mlistView.setBackgroundColor(thm);
-                            st.putInt("Themes", thm);
+                            t.edit().putInt("Themes", thm).apply();
                         }
                     }).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
