@@ -1,101 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textV"
-        android:layout_width="345dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="33dp"
-        android:breakStrategy="high_quality"
-        android:fontFamily="sans-serif-black"
-        android:text="Сохранённые заметки"
-        android:textAlignment="center"
-        android:textColor="#CECCCC"
-        android:textSize="38sp"
-        app:layout_constraintBottom_toTopOf="@+id/list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="323dp"
-        android:layout_marginEnd="32dp"
-        android:clickable="true"
-        android:scaleType="centerInside"
-        android:src="@drawable/plus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
+        android:clipToPadding="true"
+        android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/list"
-        style="@style/Widget.AppCompat.Light.ListView.DropDown"
-        android:layout_width="345dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/gray"
-        android:defaultFocusHighlightEnabled="true"
-        android:paddingStart="5dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textV"
-        app:layout_constraintVertical_bias="1.0">
+        <ImageButton
+            android:id="@+id/themeBTN"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="2dp"
+            android:background="@null"
+            android:tint="#FFFFFF" />
 
-    </ListView>
+        <TextView
+            android:id="@+id/textV"
+            android:layout_width="345dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:breakStrategy="high_quality"
+            android:fontFamily="sans-serif-black"
+            android:text="Сохранённые заметки"
+            android:textAlignment="center"
+            android:textColor="#CECCCC"
+            android:textSize="38sp" />
 
-    <ImageButton
-        android:id="@+id/themeBTN"
-        style="@android:style/Widget.Holo.Light.ImageButton"
-        android:layout_width="40dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="30dp"
-        android:background="@null"
-        android:tint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/textV"
-        app:layout_constraintEnd_toStartOf="@+id/botBTN"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/theme" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="550dp"
+            android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/botBTN"
-        android:layout_width="40dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="316dp"
-        android:layout_marginBottom="30dp"
-        android:background="@null"
-        android:tint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/textV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/bot" />
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/gray"
+                android:defaultFocusHighlightEnabled="false"
+                android:paddingStart="5dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="323dp"
+            android:layout_marginEnd="32dp"
+            android:clickable="true"
+            android:paddingEnd="25dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/plus" />
+    </LinearLayout>
+
+</LinearLayout>
