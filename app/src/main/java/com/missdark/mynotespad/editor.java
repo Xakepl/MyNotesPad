@@ -76,12 +76,6 @@ public class editor extends AppCompatActivity implements Serializable {
                 }
             }
 
-            mtlbr.setOnFocusChangeListener((v, hasFocus) -> {
-                if(hasFocus){
-                    hideKeyboardForTitle(v);
-                    hideKeyboardForText(v);
-                }
-            });
 
 
             title.setOnClickListener(v -> {
@@ -123,9 +117,13 @@ public class editor extends AppCompatActivity implements Serializable {
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-
                     }
                 });
+            });
+            title.setOnFocusChangeListener((v, hasFocus) -> {
+                if(!hasFocus){
+                    hideKeyboardForTitle(v);
+                }
             });
             text.setOnClickListener(v -> {
                 FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -167,6 +165,11 @@ public class editor extends AppCompatActivity implements Serializable {
                 });
 
             });
+        text.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus){
+                hideKeyboardForText(v);
+            }
+        });
 
         }
 
