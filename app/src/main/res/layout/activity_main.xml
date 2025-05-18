@@ -36,40 +36,32 @@
         android:textSize="38sp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipToPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="495dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/gray"
+            android:backgroundTint="#34BAE9"
+            android:defaultFocusHighlightEnabled="false"
+            android:paddingStart="5dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="10dp">
 
-            <ListView
-                android:id="@+id/list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="33dp"
-                android:layout_marginBottom="40dp"
-                android:background="@drawable/gray"
-                android:backgroundTint="#34BAE9"
-                android:defaultFocusHighlightEnabled="false"
-                android:paddingStart="5dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="10dp">
-
-            </ListView>
-
-        </LinearLayout>
+        </ListView>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
         android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
