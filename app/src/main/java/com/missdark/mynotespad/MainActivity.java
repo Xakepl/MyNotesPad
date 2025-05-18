@@ -41,32 +41,33 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ListView mlistView;
     enum Status {OPENFILEANDEDIT, CREATNEW}
     SharedPreferences t;
-    String[] ThemesName = {"Red", "Orange", "Yellow", "Green", "LtBlue", "Blue", "Purple", "Pink", "Gray", "Choco Loco"};
-    HashMap<String, Integer> themes = new HashMap<String, Integer>(){{
-        put("Red", Color.parseColor("#db6456"));
-        put("Orange", Color.parseColor("#ff964f"));
-        put("Yellow", Color.parseColor("#fffd74"));
-        put("Green", Color.parseColor("#b0ff9d"));
-        put("LtBlue", Color.parseColor("#a2bffe"));
-        put("Blue", Color.parseColor("#19789c"));
-        put("Purple", Color.parseColor("#b19cd9"));
-        put("Pink", Color.parseColor("#dea5a4"));
-        put("Gray", Color.parseColor("#a1a18c"));
-        put("Choco Loco", Color.parseColor("#7d5f53"));
-    }};
+//    String[] ThemesName = {"Red", "Orange", "Yellow", "Green", "LtBlue", "Blue", "Purple", "Pink", "Gray", "Choco Loco"};
+//    enum themes {RED, ORNAGE, YELLOW, GREEN, LTBLUE, BLUE, PURPLR, PINK, GRAY, CHOCOLOCO};
 
+//    HashMap<String, Integer> themes = new HashMap<String, Integer>(){{
+//        put("Red", Color.parseColor("#db6456"));
+//        put("Orange", Color.parseColor("#ff964f"));
+//        put("Yellow", Color.parseColor("#fffd74"));
+//        put("Green", Color.parseColor("#b0ff9d"));
+//        put("LtBlue", Color.parseColor("#a2bffe"));
+//        put("Blue", Color.parseColor("#19789c"));
+//        put("Purple", Color.parseColor("#b19cd9"));
+//        put("Pink", Color.parseColor("#dea5a4"));
+//        put("Gray", Color.parseColor("#a1a18c"));
+//        put("Choco Loco", Color.parseColor("#7d5f53"));
+//    }};
     Status def = Status.CREATNEW; //по дефолт
-    int thm;
+//    int thm;
     ImageButton theme;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Calendar c = Calendar.getInstance();
         t = getPreferences(MODE_PRIVATE);
+//        SharedPreferences.Editor st = t.edit();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         String strDate = sdf.format(c.getTime());
         Log.d("Date", "DATE : " + strDate);
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             file = new File(getFilesDir(), mDBConnector.select(id).getName() + ".txt");
             intent.putExtra("STATE", Status.OPENFILEANDEDIT);
             intent.putExtra("FILE", file);
-            intent.putExtra("Theme", thm);
+//            intent.putExtra("Theme", thm);
             startActivity(intent);
         });
 
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 mDBConnector.insert(inputText, strDate, file.getPath());
                                 intent.putExtra("FILE", file);
                                 intent.putExtra("STATE", def);
-                                intent.putExtra("", thm);
+//                                intent.putExtra("", thm);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT).show();
@@ -146,19 +147,25 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         // ===========================================| Темы |==============================================================================!!!!
         theme = findViewById(R.id.themeBTN);
         theme.setOnClickListener(v -> {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setTitle("Выберите тему: ")
+//                    .setItems(ThemesName, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            thm = themes.get(ThemesName[which]);
+//                            Log.e("x", "" + thm);
+//                            mlistView.setBackgroundColor(thm);
+//                            st.putInt("Themes", thm);
+//                        }
+//                    }).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Выберите тему: ")
-                    .setItems(ThemesName, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            thm = themes.get(ThemesName[which]);
-                            Log.e("x", "" + thm);
-                            mlistView.setBackgroundColor(thm);
-                            t.edit().putInt("Themes", thm).apply();
-                        }
-                    }).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+                    .setMessage("Coming soon").setPositiveButton("OK", (dialog, which) -> dialog.dismiss()).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
+
         });
     }
 
@@ -231,12 +238,5 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     }
 }
-
-
-/*
-!==============
-
- */
-
 
 

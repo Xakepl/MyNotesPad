@@ -6,8 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
+    android:foregroundTint="#FFFFFF"
+    android:foregroundTintMode="add"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <ImageButton
+        android:id="@+id/themeBTN"
+        android:layout_width="40dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        android:src="@drawable/theme"
+        android:tint="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textV"
+        android:layout_width="345dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:breakStrategy="high_quality"
+        android:fontFamily="sans-serif-black"
+        android:text="Сохранённые заметки"
+        android:textAlignment="center"
+        android:textColor="#CECCCC"
+        android:textSize="38sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,42 +41,20 @@
         android:clipToPadding="true"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/themeBTN"
-            android:layout_width="40dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="2dp"
-            android:background="@null"
-            android:tint="#FFFFFF" />
-
-        <TextView
-            android:id="@+id/textV"
-            android:layout_width="345dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
-            android:breakStrategy="high_quality"
-            android:fontFamily="sans-serif-black"
-            android:text="Сохранённые заметки"
-            android:textAlignment="center"
-            android:textColor="#CECCCC"
-            android:textSize="38sp" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="550dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ListView
                 android:id="@+id/list"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="33dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginBottom="40dp"
                 android:background="@drawable/gray"
+                android:backgroundTint="#34BAE9"
                 android:defaultFocusHighlightEnabled="false"
                 android:paddingStart="5dp"
                 android:paddingTop="10dp"
@@ -65,17 +69,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="323dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="330dp"
+            android:layout_marginEnd="30dp"
             android:clickable="true"
-            android:paddingEnd="25dp"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/plus" />
     </LinearLayout>
