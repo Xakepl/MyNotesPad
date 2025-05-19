@@ -11,15 +11,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="692dp"
+        android:layout_marginEnd="10dp"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/titleText"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/ltgray"
             android:backgroundTint="#5DB6A5"
             android:ems="10"
@@ -35,10 +37,11 @@
 
         <EditText
             android:id="@+id/textC"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="540dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/gray"
             android:backgroundTint="#315B53"
@@ -54,7 +57,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/materialToolbar"
@@ -69,8 +74,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="358dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
             android:paddingStart="10dp"
@@ -78,10 +83,10 @@
             android:paddingEnd="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/materialToolbar"
             app:layout_constraintEnd_toEndOf="@+id/materialToolbar"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="@+id/materialToolbar"
             app:layout_constraintTop_toTopOf="@+id/materialToolbar"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintVertical_bias="0.0">
 
             <ImageView
                 android:id="@+id/back"
