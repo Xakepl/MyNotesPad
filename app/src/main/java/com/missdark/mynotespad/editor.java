@@ -37,7 +37,7 @@ public class editor extends AppCompatActivity implements Serializable {
     ImageView save;
     ImageView back;
     ImageView clear;
-    Typeface tf;
+//    Typeface tf;
     String strText;
     File file;
     MaterialToolbar mtlbr;
@@ -57,7 +57,7 @@ public class editor extends AppCompatActivity implements Serializable {
             FSspinner = findViewById(R.id.font_size);
             FStyleSpinner = findViewById(R.id.style);
             mtlbr = findViewById(R.id.materialToolbar);
-            tf = Typeface.createFromAsset(getAssets(),"samsungsans_regular.ttf");
+//            tf = Typeface.createFromAsset(getAssets(),"samsungsans_regular.ttf");
 
             back.setOnClickListener(v -> {
                 save();
@@ -74,8 +74,8 @@ public class editor extends AppCompatActivity implements Serializable {
                     throw new RuntimeException(e);
                 }
             }
-            title.setTypeface(tf);
-            text.setTypeface(tf);
+//            title.setTypeface(tf);
+//            text.setTypeface(tf);
             title.setOnClickListener(v -> {
                 FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -107,10 +107,10 @@ public class editor extends AppCompatActivity implements Serializable {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         switch (FStyleSpinner.getSelectedItem().toString()) {
-                            case "Обычный":title.setTypeface(tf, Typeface.NORMAL);break;
-                            case "Жирный":title.setTypeface(tf, Typeface.BOLD);break;
-                            case "Курсив":title.setTypeface(tf, Typeface.ITALIC);break;
-                            case "Жирный курсив":title.setTypeface(tf, Typeface.BOLD_ITALIC);break;
+                            case "Обычный":title.setTypeface(null, Typeface.NORMAL);break;
+                            case "Жирный":title.setTypeface(null, Typeface.BOLD);break;
+                            case "Курсив":title.setTypeface(null, Typeface.ITALIC);break;
+                            case "Жирный курсив":title.setTypeface(null, Typeface.BOLD_ITALIC);break;
                         }
                     }
                     @Override
@@ -152,22 +152,10 @@ public class editor extends AppCompatActivity implements Serializable {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         switch (FStyleSpinner.getSelectedItem().toString()) {
-                            case "Обычный":
-                                text.setTypeface(tf, Typeface.NORMAL);
-                                sharedPreferences.edit().putInt("TextSt", text.getTypeface().getStyle());
-                            break;
-                            case "Жирный":
-                                text.setTypeface(tf, Typeface.BOLD);
-                                sharedPreferences.edit().putInt("TextSt", text.getTypeface().getStyle());
-                            break;
-                            case "Курсив":
-                                text.setTypeface(tf, Typeface.ITALIC);
-                                sharedPreferences.edit().putInt("TextSt", text.getTypeface().getStyle());
-                                break;
-                            case "Жирный курсив":text.setTypeface(tf, Typeface.BOLD_ITALIC);
-                                sharedPreferences.edit().putInt("TextSt", text.getTypeface().getStyle());
-                                Log.e("TextSty", "" + text.getTypeface().getStyle());
-                            break;
+                            case "Обычный":text.setTypeface(null, Typeface.NORMAL);break;
+                            case "Жирный":text.setTypeface(null, Typeface.BOLD);break;
+                            case "Курсив":text.setTypeface(null, Typeface.ITALIC);break;
+                            case "Жирный курсив":text.setTypeface(null, Typeface.BOLD_ITALIC);break;
                         }
                     }
                     @Override
@@ -186,14 +174,14 @@ public class editor extends AppCompatActivity implements Serializable {
     void openAndEdit() throws FileNotFoundException {
         file = (File) getIntent().getSerializableExtra("FILE");
         sharedPreferences = getPreferences(MODE_PRIVATE);
-        title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize())/1.75f);
-        text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
-        title.setTypeface(tf, sharedPreferences.getInt("TitleStyle", title.getTypeface().getStyle()));
-        text.setTypeface(tf, sharedPreferences.getInt("TextStyle", text.getTypeface().getStyle()));
+        title.setTextSize(sharedPreferences.getFloat("TitleSize", title.getTextSize()/1.75f)/1.75f);
+        text.setTextSize(sharedPreferences.getFloat("TextSize", text.getTextSize()/1.75f)/1.75f);
+//        title.setTypeface(tf, sharedPreferences.getInt("TitleStyle", title.getTypeface().getStyle()));
+//        text.setTypeface(tf, sharedPreferences.getInt("TextStyle", text.getTypeface().getStyle()));
         //        title.setTypeface(null, sharedPreferences.get("TitleSize", title.getTextSize())/1.75f);
 //        text.setTypeeface(null, sharedPreferences.getFloat("TextSize", text.getTextSize())/1.75f);
-        Log.e("TITLEST", "" + sharedPreferences.getInt("TitleStyle", title.getTypeface().getStyle()));
-        Log.e("TITLEST", ""  + sharedPreferences.getInt("TextStyle", text.getTypeface().getStyle()));
+//        Log.e("TITLEST", "" + sharedPreferences.getInt("TitleStyle", title.getTypeface().getStyle()));
+//        Log.e("TITLEST", ""  + sharedPreferences.getInt("TextStyle", text.getTypeface().getStyle()));
 
         //1.75
         try {
@@ -223,11 +211,11 @@ public class editor extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor seditor = sharedPreferences.edit();
         seditor.putFloat("TitleSize", title.getTextSize());
         seditor.putFloat("TextSize", text.getTextSize());
-        seditor.putInt("TitleStyle", title.getTypeface().getStyle());
-        seditor.putInt("TextStyle", text.getTypeface().getStyle());
+//        seditor.putInt("TitleStyle", title.getTypeface().getStyle());
+//        seditor.putInt("TextStyle", text.getTypeface().getStyle());
         seditor.apply();
-        Log.e("TitleSTSave", "" + title.getTypeface().getStyle());
-        Log.e("TextSTSave",  "" + text.getTypeface().getStyle());
+//        Log.e("TitleSTSave", "" + title.getTypeface().getStyle());
+//        Log.e("TextSTSave",  "" + text.getTypeface().getStyle());
 
         file = (File) getIntent().getSerializableExtra("FILE");
         strTitle = title.getText().toString();
