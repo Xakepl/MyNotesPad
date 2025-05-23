@@ -259,10 +259,6 @@ public class editor extends AppCompatActivity implements Serializable {
         super.onPause();
         save();
     }
-
-
-
-
     //https://clck.ru/3LbU9c
     //смена шрифтов
 }

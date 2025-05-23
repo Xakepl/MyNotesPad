@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         });
 
         // ===========================================| Темы |==============================================================================!!!!
-        theme = findViewById(R.id.themeBTN);
-        theme.setOnClickListener(v -> {
+//        theme = findViewById(R.id.themeBTN);
+//        theme.setOnClickListener(v -> {
 //            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //            builder.setTitle("Выберите тему: ")
 //                    .setItems(ThemesName, new DialogInterface.OnClickListener() {
@@ -160,13 +160,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //                    }).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
 //            AlertDialog dialog = builder.create();
 //            dialog.show();
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Выберите тему: ")
-                    .setMessage("Coming soon").setPositiveButton("OK", (dialog, which) -> dialog.dismiss()).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
-            AlertDialog dialog = builder.create();
-            dialog.show();
-
-        });
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setTitle("Выберите тему: ")
+//                    .setMessage("Coming soon").setPositiveButton("OK", (dialog, which) -> dialog.dismiss()).setNegativeButton("Отмена", (dialog, which) -> dialog.dismiss());
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
+//
+//        });
     }
 
     @Override
