@@ -58,7 +58,7 @@
     </style>
 
 
-    <style name="EditTextDark" parent="Widget.MaterialComponents.EditText">
+    <style name="EditTextDark" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/white</item>
     </style>
 

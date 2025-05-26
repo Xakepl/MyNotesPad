@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //    }};
     Status def = Status.CREATNEW; //по дефолт
 //    int thm;
-    ImageButton theme;
+//    ImageButton theme;
 
 
     @Override
@@ -133,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 mDBConnector.insert(inputText, strDate, file.getPath());
                                 intent.putExtra("FILE", file);
                                 intent.putExtra("STATE", def);
-//                                intent.putExtra("", thm);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(MainActivity.this, "Пожалуйста, введите название заметки!!!!", Toast.LENGTH_SHORT).show();

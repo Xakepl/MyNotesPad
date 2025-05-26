@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -16,6 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -40,10 +42,20 @@ public class editor extends AppCompatActivity implements Serializable {
     Typeface tf;
     String strText;
     File file;
-    MaterialToolbar mtlbr;
+//    MaterialToolbar mtlbr;
     Spinner FSspinner;
     Spinner FStyleSpinner;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        tf = Typeface.createFromAsset(getAssets(),"impact.ttf");
+
+        title.setTypeface(tf);
+        text.setTypeface(tf);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -56,9 +68,10 @@ public class editor extends AppCompatActivity implements Serializable {
             clear = findViewById(R.id.clear);
             FSspinner = findViewById(R.id.font_size);
             FStyleSpinner = findViewById(R.id.style);
-            tf = Typeface.createFromAsset(getAssets(),"samsungsans_regular.ttf");
+            if(tf != null)
+                Log.e("CREATETF", "TRUE0 " + title.getTypeface().getSystemFontFamilyName());
 
-            back.setOnClickListener(v -> {
+        back.setOnClickListener(v -> {
                 Intent i = new Intent(editor.this, MainActivity.class);
                 startActivity(i);
             });
@@ -72,10 +85,9 @@ public class editor extends AppCompatActivity implements Serializable {
                     throw new RuntimeException(e);
                 }
             }
-            title.setTypeface(tf);
-            text.setTypeface(tf);
 
         findViewById(R.id.editorL).setOnClickListener(v -> {
+            //to do: проверить клики
             View focusedView = getCurrentFocus();
             if (focusedView != null) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -114,11 +126,21 @@ public class editor extends AppCompatActivity implements Serializable {
             FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    //to do: проверить клики
                     switch (FStyleSpinner.getSelectedItem().toString()) {
-                        case "Обычный":title.setTypeface(tf, Typeface.NORMAL);break;
-                        case "Жирный":title.setTypeface(tf, Typeface.BOLD);break;
-                        case "Курсив":title.setTypeface(tf, Typeface.ITALIC);break;
-                        case "Жирный курсив":title.setTypeface(tf, Typeface.BOLD_ITALIC);break;
+                        case "Обычный":title.setTypeface(tf, (Typeface.NORMAL));
+                            Log.e("STYLE",  "" + title.getTypeface().getStyle());
+                            break;
+                        case "Жирный":title.setTypeface(tf, (Typeface.BOLD));
+                            Log.e("VITALIC", title.getTypeface().isBold() ? "DA" : "NET");
+                            Log.e("STYLE",  "" + title.getTypeface().getStyle());
+                            break;
+                        case "Курсив":title.setTypeface(Typeface.create(tf ,Typeface.ITALIC));
+                            Log.e("STYLE",  "" + title.getTypeface().getStyle());
+                            break;
+                        case "Жирный курсив":title.setTypeface(tf ,(Typeface.BOLD_ITALIC));
+                            Log.e("STYLE",  "" + title.getTypeface().getStyle());
+                            break;
                     }
                 }
                 @Override
@@ -159,6 +181,10 @@ public class editor extends AppCompatActivity implements Serializable {
                             case "Жирный":text.setTypeface(tf, Typeface.BOLD);break;
                             case "Курсив":text.setTypeface(tf, Typeface.ITALIC);break;
                             case "Жирный курсив":text.setTypeface(tf, Typeface.BOLD_ITALIC);break;
+//                            case "Обычный":text.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));break;
+//                            case "Жирный":text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));break;
+//                            case "Курсив":text.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));break;
+//                            case "Жирный курсив":text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));break;
                         }
                     }
                     @Override
@@ -166,12 +192,6 @@ public class editor extends AppCompatActivity implements Serializable {
                 });
 
             });
-//        text.setOnFocusChangeListener((v, hasFocus) -> {
-//            if(!hasFocus){
-//                hideKeyboardForText(v);
-//            }
-//        });
-
         }
 
     void openAndEdit() throws FileNotFoundException {
@@ -179,9 +199,12 @@ public class editor extends AppCompatActivity implements Serializable {
         sharedPreferences = getPreferences(MODE_PRIVATE);
         title.setTextSize(sharedPreferences.getFloat("TitleSize", pxToSp(title.getTextSize())));
         text.setTextSize(sharedPreferences.getFloat("TextSize", pxToSp(text.getTextSize())));
-        Log.e("TitleSopen", "" + title.getTextSize());
-        Log.e("TextSopen",  "" + text.getTextSize());
-        //1.75
+        title.setTypeface(title.getTypeface(), sharedPreferences.getInt("TitleStyle", title.getTypeface().getStyle()));
+        text.setTypeface(text.getTypeface(), sharedPreferences.getInt("TextStyle", text.getTypeface().getStyle()));
+
+        Log.e("CREATETF", "" + title.getTypeface().getStyle());
+;
+
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder content = new StringBuilder();
@@ -209,11 +232,16 @@ public class editor extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor seditor = sharedPreferences.edit();
         seditor.putFloat("TitleSize", pxToSp(title.getTextSize()));
         seditor.putFloat("TextSize", pxToSp(text.getTextSize()));
-//        seditor.putInt("TitleStyle", title.getTypeface().getStyle());
-//        seditor.putInt("TextStyle", text.getTypeface().getStyle());
+        seditor.putInt("TitleStyle", title.getTypeface().getStyle());
+        seditor.putInt("TextStyle", text.getTypeface().getStyle());
         seditor.apply();
-        Log.e("TitleSSave", "" + pxToSp(title.getTextSize()));
-        Log.e("TextSSave",  "" + pxToSp(text.getTextSize()));
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+//            Log.e("TitleSSave", "" + title.getTypeface().getSystemFontFamilyName());
+//        }
+//        else
+//            Log.e("FFF0", "error");
+////        Log.e("TextSSave",  "" + pxToSp(text.getTextSize()));
 
         file = (File) getIntent().getSerializableExtra("FILE");
         strTitle = title.getText().toString();
@@ -231,15 +259,6 @@ public class editor extends AppCompatActivity implements Serializable {
             Toast.makeText(this, "Ошибка сохранения: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-    }
-
-    public void hideKeyboardForTitle(View  v){
-        InputMethodManager imn = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imn.hideSoftInputFromWindow(v.getWindowToken(), 0);
-    }
-    public void hideKeyboardForText(View v){
-        InputMethodManager imn = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imn.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
 
