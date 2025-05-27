@@ -88,6 +88,7 @@ public class editor extends AppCompatActivity implements Serializable {
 
         findViewById(R.id.editorL).setOnClickListener(v -> {
             //to do: проверить клики
+            Log.e("CLICK ", "" + findViewById(R.id.editorL).callOnClick());
             View focusedView = getCurrentFocus();
             if (focusedView != null) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
