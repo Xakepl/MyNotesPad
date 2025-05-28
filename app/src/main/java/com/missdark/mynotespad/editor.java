@@ -50,6 +50,12 @@ public class editor extends AppCompatActivity implements Serializable {
     LinearLayout ed;
     Spinner FStyleSpinner;
 
+    boolean clickTitle;
+    boolean clickText;
+    boolean clickLayout;
+    int styleTitle;
+    int styleText;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -63,33 +69,36 @@ public class editor extends AppCompatActivity implements Serializable {
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
         protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_editor);
-            title = findViewById(R.id.titleText);
-            text = findViewById(R.id.textC);
-            save = findViewById(R.id.save);
-            save.setOnClickListener(v -> save());
-            back = findViewById(R.id.back);
-            clear = findViewById(R.id.clear);
-            FSspinner = findViewById(R.id.font_size);
-            FStyleSpinner = findViewById(R.id.style);
-            if(tf != null)
-                Log.e("CREATETF", "TRUE0 " + title.getTypeface().getSystemFontFamilyName());
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_editor);
+        title = findViewById(R.id.titleText);
+        text = findViewById(R.id.textC);
+        save = findViewById(R.id.save);
+        save.setOnClickListener(v -> save());
+        back = findViewById(R.id.back);
+        clear = findViewById(R.id.clear);
+        FSspinner = findViewById(R.id.font_size);
+        FStyleSpinner = findViewById(R.id.style);
+        clickTitle = false;
+        clickText = false;
+        clickLayout = false;
+        if (tf != null)
+            Log.e("CREATETF", "TRUE0 " + title.getTypeface().getSystemFontFamilyName());
 
         back.setOnClickListener(v -> {
-                Intent i = new Intent(editor.this, MainActivity.class);
-                startActivity(i);
-            });
-            clear.setOnClickListener(v -> clear());
+            Intent i = new Intent(editor.this, MainActivity.class);
+            startActivity(i);
+        });
+        clear.setOnClickListener(v -> clear());
 
-            if (getIntent().getSerializableExtra("STATE") == MainActivity.Status.OPENFILEANDEDIT) {
-                try {
-                    openAndEdit();
-                } catch (FileNotFoundException e) {
-                    Log.e("unsucces openFile", String.valueOf(e));
-                    throw new RuntimeException(e);
-                }
+        if (getIntent().getSerializableExtra("STATE") == MainActivity.Status.OPENFILEANDEDIT) {
+            try {
+                openAndEdit();
+            } catch (FileNotFoundException e) {
+                Log.e("unsucces openFile", String.valueOf(e));
+                throw new RuntimeException(e);
             }
+        }
 
         ed = findViewById(R.id.editorL);
 //            ed.setOnClickListener(v -> {
@@ -104,23 +113,30 @@ public class editor extends AppCompatActivity implements Serializable {
 //        });
 
         ed.setOnTouchListener((v, event) -> {
-
+            clickLayout = true;
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Log.e("CLICKCANCEL ", "" + ed.callOnClick());
+                Log.e("CLICKCANCEL ", "" + clickLayout);
+                Log.e("CLICKTITLE ", "" + clickTitle);
+
+//                Log.e("CLICKCANCEL ", "" + ed.callOnClick());
                 View focusedView = getCurrentFocus();
                 if (focusedView != null) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
                     focusedView.clearFocus();
+                    clickLayout = false;
                 }
             }
             return false;
         });
 
 
-
         title.setOnClickListener(v -> {
-            Log.e("CLICKTITLE ", "" + title.callOnClick());
+            clickTitle = true;
+            clickText = false;
+            Log.e("CLICKTITLE ", "" + clickTitle);
+            Log.e("CLICKCANCEL ", "" + clickLayout);
+//            Log.e("CLICKTITLE ", "" + title.callOnClick());
 
             FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -141,95 +157,94 @@ public class editor extends AppCompatActivity implements Serializable {
                         case "28":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);break;
                         case "36":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);break;
                         case "48":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);break;
-                    }
-                    //TODO Сделать пандинги для заголовка
-                }
+                    }}
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {}
             });
-
             FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    //to do: проверить клики
-                    switch (FStyleSpinner.getSelectedItem().toString()) {
-                        case "Обычный":title.setTypeface(tf, (Typeface.NORMAL));
-                            Log.e("STYLE",  "" + title.getTypeface().getStyle());
-                            break;
-                        case "Жирный":title.setTypeface(tf, (Typeface.BOLD));
-                            Log.e("VITALIC", title.getTypeface().isBold() ? "DA" : "NET");
-                            Log.e("STYLE",  "" + title.getTypeface().getStyle());
-                            break;
-                        case "Курсив":title.setTypeface(Typeface.create(tf ,Typeface.ITALIC));
-                            Log.e("STYLE",  "" + title.getTypeface().getStyle());
-                            break;
-                        case "Жирный курсив":title.setTypeface(tf ,(Typeface.BOLD_ITALIC));
-                            Log.e("STYLE",  "" + title.getTypeface().getStyle());
-                            break;
+                    if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
+                        styleTitle = 0;
+                        title.setTypeface(Typeface.create(tf, styleTitle));
+                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
+                        styleTitle = 1;
+                        title.setTypeface(tf, styleTitle);
+                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
+                        styleTitle = 2;
+                        title.setTypeface(tf, styleTitle);
+                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
+                        styleTitle = 3;
+                        title.setTypeface(tf, styleTitle);
                     }
                 }
+
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
         });
-            text.setOnClickListener(v -> {
-                FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-                            switch (FSspinner.getSelectedItem().toString()) {
-                            case "8":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);break;
-                            case "9":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);break;
-                            case "10":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);break;
-                            case "11":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);break;
-                            case "12":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);break;
-                            case "14":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);break;
-                            case "16":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);break;
-                            case "18":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);break;
-                            case "20":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);break;
-                            case "22":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);break;
-                            case "24":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);break;
-                            case "26":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);break;
-                            case "28":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);break;
-                            case "36":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);break;
-                            case "48":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);break;
-                            }
-                        }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
-                });
-                FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        switch (FStyleSpinner.getSelectedItem().toString()) {
-                            case "Обычный":text.setTypeface(tf, Typeface.NORMAL);break;
-                            case "Жирный":text.setTypeface(tf, Typeface.BOLD);break;
-                            case "Курсив":text.setTypeface(tf, Typeface.ITALIC);break;
-                            case "Жирный курсив":text.setTypeface(tf, Typeface.BOLD_ITALIC);break;
-//                            case "Обычный":text.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));break;
-//                            case "Жирный":text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));break;
-//                            case "Курсив":text.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));break;
-//                            case "Жирный курсив":text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));break;
-                        }
+        text.setOnClickListener(v -> {
+            clickText = true;
+            clickTitle = false;
+            FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    switch (FSspinner.getSelectedItem().toString()) {
+                        case "8":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);break;
+                        case "9":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);break;
+                        case "10":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);break;
+                        case "11":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);break;
+                        case "12":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);break;
+                        case "14":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);break;
+                        case "16":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);break;
+                        case "18":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);break;
+                        case "20":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);break;
+                        case "22":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);break;
+                        case "24":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);break;
+                        case "26":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);break;
+                        case "28":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);break;
+                        case "36":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);break;
+                        case "48":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);break;
                     }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
-                });
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
             });
-        }
+            FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
+                        styleText = 0;
+                        text.setTypeface(Typeface.create(tf, styleText));
+                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
+                        styleText = 1;
+                        text.setTypeface(tf, styleText);
+                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
+                        styleText = 2;
+                        text.setTypeface(tf, styleText);
+                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
+                        styleText = 3;
+                        text.setTypeface(tf, styleText);
+                    }
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+            });
+        });
+    }
 
     void openAndEdit() throws FileNotFoundException {
         file = (File) getIntent().getSerializableExtra("FILE");
         sharedPreferences = getPreferences(MODE_PRIVATE);
         title.setTextSize(sharedPreferences.getFloat("TitleSize", pxToSp(title.getTextSize())));
         text.setTextSize(sharedPreferences.getFloat("TextSize", pxToSp(text.getTextSize())));
-        title.setTypeface(title.getTypeface(), sharedPreferences.getInt("TitleStyle", title.getTypeface().getStyle()));
-        text.setTypeface(text.getTypeface(), sharedPreferences.getInt("TextStyle", text.getTypeface().getStyle()));
+        title.setTypeface(title.getTypeface(), sharedPreferences.getInt("TitleStyle", styleTitle));
+        text.setTypeface(text.getTypeface(), sharedPreferences.getInt("TextStyle", styleText));
 
         Log.e("CREATETF", "" + title.getTypeface().getStyle());
-;
-
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder content = new StringBuilder();
@@ -257,8 +272,8 @@ public class editor extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor seditor = sharedPreferences.edit();
         seditor.putFloat("TitleSize", pxToSp(title.getTextSize()));
         seditor.putFloat("TextSize", pxToSp(text.getTextSize()));
-        seditor.putInt("TitleStyle", title.getTypeface().getStyle());
-        seditor.putInt("TextStyle", text.getTypeface().getStyle());
+        seditor.putInt("TitleStyle", styleTitle);
+        seditor.putInt("TextStyle", styleText);
         seditor.apply();
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
