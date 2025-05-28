@@ -1,5 +1,6 @@
 package com.missdark.mynotespad;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,11 +9,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -44,6 +47,7 @@ public class editor extends AppCompatActivity implements Serializable {
     File file;
 //    MaterialToolbar mtlbr;
     Spinner FSspinner;
+    LinearLayout ed;
     Spinner FStyleSpinner;
 
     @Override
@@ -55,6 +59,7 @@ public class editor extends AppCompatActivity implements Serializable {
         text.setTypeface(tf);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -86,18 +91,37 @@ public class editor extends AppCompatActivity implements Serializable {
                 }
             }
 
-        findViewById(R.id.editorL).setOnClickListener(v -> {
-            //to do: проверить клики
-            Log.e("CLICK ", "" + findViewById(R.id.editorL).callOnClick());
-            View focusedView = getCurrentFocus();
-            if (focusedView != null) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
-                focusedView.clearFocus();
+        ed = findViewById(R.id.editorL);
+//            ed.setOnClickListener(v -> {
+//            //to do: проверить клики
+//            Log.e("CLICKCANCEL ", "" + ed.callOnClick());
+//            View focusedView = getCurrentFocus();
+//            if (focusedView != null) {
+//                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
+//                focusedView.clearFocus();
+//            }
+//        });
+
+        ed.setOnTouchListener((v, event) -> {
+
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Log.e("CLICKCANCEL ", "" + ed.callOnClick());
+                View focusedView = getCurrentFocus();
+                if (focusedView != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
+                    focusedView.clearFocus();
+                }
             }
+            return false;
         });
 
+
+
         title.setOnClickListener(v -> {
+            Log.e("CLICKTITLE ", "" + title.callOnClick());
+
             FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

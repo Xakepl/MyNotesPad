@@ -4,51 +4,6 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-    <style name="Red.Theme.MyNotesPad" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/red</item>
-        <item name="colorSecondary">@color/second_red</item>
-    </style>
-    <style name="Orange.Theme.MyNotesPad" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/orange</item>
-        <item name="colorSecondary">@color/second_orange</item>
-    </style>
-    <style name="Yellow.Theme.MyNotesPad." parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="colorSecondary">@color/second_yellow</item>
-    </style>
-    <style name="Green.Theme.MyNotesPad" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorSecondary">@color/second_green</item>
-    </style>
-    <style name="LtBlue.Theme.MyNotesPad" parent="Theme.Material3.DayNight.NoActionBar">
-    <!-- Customize your light theme here. -->
-    <item name="colorPrimary">@color/ltblue</item>
-    <item name="colorSecondary">@color/second_ltblue</item>
-</style>
-    <style name="Blue.Theme.MyNotesPad" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorSecondary">@color/second_blue</item>
-    </style>
-    <style name="Purple.Theme.MyNotesPad." parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/purple</item>
-        <item name="colorSecondary">@color/second_purple</item>
-    </style>
-    <style name="Gray.Theme.MyNotesPad" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/gray</item>
-        <item name="colorSecondary">@color/second_gray</item>
-    </style>
-    <style name="Choco_loco.Theme.MyNotesPad" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/chocoloco</item>
-        <item name="colorSecondary">@color/second_choco</item>
-    </style>
 
     <style name="Theme.MyNotesPad" parent="Base.Theme.MyNotesPad" />
 </resources>
