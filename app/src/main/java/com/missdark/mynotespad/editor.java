@@ -49,7 +49,6 @@ public class editor extends AppCompatActivity implements Serializable {
     Spinner FSspinner;
     LinearLayout ed;
     Spinner FStyleSpinner;
-
     boolean clickTitle;
     boolean clickText;
     boolean clickLayout;
@@ -59,12 +58,13 @@ public class editor extends AppCompatActivity implements Serializable {
     @Override
     protected void onStart() {
         super.onStart();
-        tf = Typeface.createFromAsset(getAssets(),"impact.ttf");
+        tf = Typeface.createFromAsset(getAssets(),"samsungsans_regular.ttf");
 
         title.setTypeface(tf);
         text.setTypeface(tf);
     }
-
+//TODO html разметка
+    //TODO просмотреть какие тextView принимают такой формат
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
