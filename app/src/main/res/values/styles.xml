@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme.Red" parent="Theme.MaterialComponents">
+    <style name="Style.Red" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/red</item>
         <item name="colorSecondary">@color/second_red</item>
         <item name="editTextStyle">@style/EditTextDark</item>
     </style>
 
-    <style name="AppTheme.Orange" parent="Theme.MaterialComponents">
+    <style name="Style.Orange" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/orange</item>
         <item name="colorSecondary">@color/second_orange</item>
         <item name="editTextStyle">@style/EditTextDark</item>
     </style>
 
-    <style name="AppTheme.Yellow" parent="Theme.MaterialComponents">
+    <style name="Style.Yellow" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/yellow</item>
         <item name="colorSecondary">@color/second_yellow</item>
         <item name="editTextStyle">@style/EditTextDark</item>
     </style>
-    <style name="AppTheme.Green" parent="Theme.MaterialComponents">
+    <style name="Style.Green" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/green</item>
         <item name="colorSecondary">@color/second_green</item>
         <item name="editTextStyle">@style/EditTextDark</item>
     </style>
 
-    <style name="AppTheme.LtBlue" parent="Theme.MaterialComponents">
+    <style name="Style.LtBlue" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/ltblue</item>
         <item name="colorSecondary">@color/second_ltblue</item>
         <item name="editTextStyle">@style/EditTextDark</item>
     </style>
 
-    <style name="AppTheme.Blue" parent="Theme.MaterialComponents">
+    <style name="Style.Blue" parent="Theme.MaterialComponents">
     <item name="colorPrimary">@color/blue</item>
     <item name="colorSecondary">@color/second_blue</item>
     <item name="editTextStyle">@style/EditTextDark</item>
     </style>
-    <style name="AppTheme.Purple" parent="Theme.MaterialComponents">
+    <style name="Style.Purple" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/purple</item>
         <item name="colorSecondary">@color/second_purple</item>
         <item name="editTextStyle">@style/EditTextDark</item>
     </style>
-    <style name="AppTheme.Pink" parent="Theme.MaterialComponents">
+    <style name="Style.Pink" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/pink</item>
         <item name="colorSecondary">@color/second_pink</item>
         <item name="editTextStyle">@style/EditTextDark</item>
     </style>
 
-    <style name="AppTheme.Gray" parent="Theme.MaterialComponents">
+    <style name="Style.Gray" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/gray</item>
         <item name="colorSecondary">@color/second_gray</item>
         <item name="editTextStyle">@style/EditTextDark</item>
     </style>
 
-    <style name="AppTheme.ChocoLoco" parent="Theme.MaterialComponents">
+    <style name="Style.ChocoLoco" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/blue</item>
         <item name="colorSecondary">@color/second_blue</item>
         <item name="editTextStyle">@style/EditTextDark</item>
