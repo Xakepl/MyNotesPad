@@ -7,6 +7,11 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Spannable;
+import android.text.TextWatcher;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -54,6 +59,8 @@ public class editor extends AppCompatActivity implements Serializable {
     boolean clickLayout;
     int styleTitle;
     int styleText;
+    int sizeTitle;
+    int sizeText;
 
     @Override
     protected void onStart() {
@@ -131,120 +138,153 @@ public class editor extends AppCompatActivity implements Serializable {
         });
 
 
-        title.setOnClickListener(v -> {
-            clickTitle = true;
-            clickText = false;
-            Log.e("CLICKTITLE ", "" + clickTitle);
-            Log.e("CLICKCANCEL ", "" + clickLayout);
+        title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int selS = text.getSelectionStart();
+                int selE = text.getSelectionEnd();
+                clickTitle = true;
+//            clickText = false;
+                Log.e("CLICKTITLE ", "" + clickTitle);
+                Log.e("CLICKCANCEL ", "" + clickLayout);
 //            Log.e("CLICKTITLE ", "" + title.callOnClick());
 
-            FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    switch (FSspinner.getSelectedItem().toString()) {
-                        case "8":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);break;
-                        case "9":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);break;
-                        case "10":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);break;
-                        case "11":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);break;
-                        case "12":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);break;
-                        case "14":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);break;
-                        case "16":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);break;
-                        case "18":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);break;
-                        case "20":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);break;
-                        case "22":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);break;
-                        case "24":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);break;
-                        case "26":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);break;
-                        case "28":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);break;
-                        case "36":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);break;
-                        case "48":title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);break;
-                    }}
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {}
-            });
-            FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
-                        styleTitle = 0;
-                        title.setTypeface(Typeface.create(tf, styleTitle));
-                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
-                        styleTitle = 1;
-                        title.setTypeface(tf, styleTitle);
-                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
-                        styleTitle = 2;
-                        title.setTypeface(tf, styleTitle);
-                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
-                        styleTitle = 3;
-                        title.setTypeface(tf, styleTitle);
+                FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        switch (FSspinner.getSelectedItem().toString()) {
+                            case "8":title.getText().setSpan(new AbsoluteSizeSpan(8), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "9":title.getText().setSpan(new AbsoluteSizeSpan(9), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "10":title.getText().setSpan(new AbsoluteSizeSpan(10), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "11":title.getText().setSpan(new AbsoluteSizeSpan(11), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "12":title.getText().setSpan(new AbsoluteSizeSpan(12), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "14":title.getText().setSpan(new AbsoluteSizeSpan(14), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "16":title.getText().setSpan(new AbsoluteSizeSpan(16), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "18":title.getText().setSpan(new AbsoluteSizeSpan(18), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "20":title.getText().setSpan(new AbsoluteSizeSpan(20), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "22":title.getText().setSpan(new AbsoluteSizeSpan(22), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "24":title.getText().setSpan(new AbsoluteSizeSpan(24), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "26":title.getText().setSpan(new AbsoluteSizeSpan(26), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "28":title.getText().setSpan(new AbsoluteSizeSpan(28), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "36":title.getText().setSpan(new AbsoluteSizeSpan(36), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            case "48":title.getText().setSpan(new AbsoluteSizeSpan(48), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                        }}
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
+                FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
+                            styleTitle = 0;
+                            title.setTypeface(Typeface.create(tf, styleTitle));
+                            title.getText().setSpan(new StyleSpan(styleTitle), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
+                            styleTitle = 1;
+                            title.getText().setSpan(new StyleSpan(styleTitle), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
+                            styleTitle = 2;
+                            title.getText().setSpan(new StyleSpan(styleTitle), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
+                            styleTitle = 3;
+                            title.getText().setSpan(new StyleSpan(styleTitle), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        }
                     }
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-        });
-        text.setOnClickListener(v -> {
-            clickText = true;
-            clickTitle = false;
-            FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    switch (FSspinner.getSelectedItem().toString()) {
-                        case "8":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);break;
-                        case "9":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);break;
-                        case "10":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);break;
-                        case "11":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);break;
-                        case "12":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);break;
-                        case "14":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);break;
-                        case "16":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);break;
-                        case "18":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);break;
-                        case "20":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);break;
-                        case "22":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);break;
-                        case "24":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);break;
-                        case "26":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);break;
-                        case "28":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);break;
-                        case "36":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);break;
-                        case "48":text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);break;
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
                     }
-                }
+                });
+            }
+//
+        });
+        text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //            clickText = true;
+//            clickTitle = false;
+                int selS = text.getSelectionStart();
+                int selE = text.getSelectionEnd();
+                if (selS != selE) {
+                    FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            switch (FSspinner.getSelectedItem().toString()) {
+                                case "8":text.getText().setSpan(new AbsoluteSizeSpan(8), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "9":text.getText().setSpan(new AbsoluteSizeSpan(9), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "10":text.getText().setSpan(new AbsoluteSizeSpan(10), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "11":text.getText().setSpan(new AbsoluteSizeSpan(11), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "12":text.getText().setSpan(new AbsoluteSizeSpan(12), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "14":text.getText().setSpan(new AbsoluteSizeSpan(14), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "16":text.getText().setSpan(new AbsoluteSizeSpan(16), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "18":text.getText().setSpan(new AbsoluteSizeSpan(18), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "20":text.getText().setSpan(new AbsoluteSizeSpan(20), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "22":text.getText().setSpan(new AbsoluteSizeSpan(22), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "24":text.getText().setSpan(new AbsoluteSizeSpan(24), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "26":text.getText().setSpan(new AbsoluteSizeSpan(26), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "28":text.getText().setSpan(new AbsoluteSizeSpan(28), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "36":text.getText().setSpan(new AbsoluteSizeSpan(36), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                                case "48":text.getText().setSpan(new AbsoluteSizeSpan(48), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
+                    FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
+                                styleText = 0;
+                                text.getText().setSpan(new StyleSpan(styleText), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
+                                styleText = 1;
+                                text.getText().setSpan(new StyleSpan(styleText), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
+                                styleText = 2;
+                                text.getText().setSpan(new StyleSpan(styleText), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
+                                styleText = 3;
+                                text.getText().setSpan(new StyleSpan(styleText), selS, selE, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
                 }
-            });
-            FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
-                        styleText = 0;
-                        text.setTypeface(Typeface.create(tf, styleText));
-                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
-                        styleText = 1;
-                        text.setTypeface(tf, styleText);
-                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
-                        styleText = 2;
-                        text.setTypeface(tf, styleText);
-                    } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
-                        styleText = 3;
-                        text.setTypeface(tf, styleText);
-                    }
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {}
-            });
+            }
         });
+
     }
 
     void openAndEdit() throws FileNotFoundException {
         file = (File) getIntent().getSerializableExtra("FILE");
         sharedPreferences = getPreferences(MODE_PRIVATE);
-        title.setTextSize(sharedPreferences.getFloat("TitleSize", pxToSp(title.getTextSize())));
-        text.setTextSize(sharedPreferences.getFloat("TextSize", pxToSp(text.getTextSize())));
-        title.setTypeface(title.getTypeface(), sharedPreferences.getInt("TitleStyle", styleTitle));
-        text.setTypeface(text.getTypeface(), sharedPreferences.getInt("TextStyle", styleText));
+//        title.setTextSize(sharedPreferences.getFloat("TitleSize", pxToSp(title.getTextSize())));
+//        text.setTextSize(sharedPreferences.getFloat("TextSize", pxToSp(text.getTextSize())));
+//        title.setTypeface(title.getTypeface(), sharedPreferences.getInt("TitleStyle", styleTitle));
+//        text.setTypeface(text.getTypeface(), sharedPreferences.getInt("TextStyle", styleText));
 
-        Log.e("CREATETF", "" + title.getTypeface().getStyle());
+//        Log.e("CREATETF", "" + title.getTypeface().getStyle());
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder content = new StringBuilder();
@@ -270,10 +310,10 @@ public class editor extends AppCompatActivity implements Serializable {
     void save(){
         sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor seditor = sharedPreferences.edit();
-        seditor.putFloat("TitleSize", pxToSp(title.getTextSize()));
-        seditor.putFloat("TextSize", pxToSp(text.getTextSize()));
-        seditor.putInt("TitleStyle", styleTitle);
-        seditor.putInt("TextStyle", styleText);
+//        seditor.putFloat("TitleSize", pxToSp(title.getTextSize()));
+//        seditor.putFloat("TextSize", pxToSp(text.getTextSize()));
+//        seditor.putInt("TitleStyle", styleTitle);
+//        seditor.putInt("TextStyle", styleText);
         seditor.apply();
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -303,7 +343,6 @@ public class editor extends AppCompatActivity implements Serializable {
 
 
 //TODO СТИЛИ ТЕКСТА, КУРСИВ ЖИРНЫЙ ПОДЧЁРКНУТЫЙ И ЗАЧЁРКНУТЫЙ
-    //TODO ЧАТ БОТ ИИ
 //TODO темы для блокнота
     void clear(){
         title.setText("");
