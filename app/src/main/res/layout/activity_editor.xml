@@ -57,8 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop = "10dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="9.7"
         android:background="@drawable/ltgray"
@@ -76,60 +76,62 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            app:tint="#000000"
-            app:srcCompat="@android:drawable/ic_menu_revert" />
+            app:srcCompat="@android:drawable/ic_menu_revert"
+            app:tint="#000000" />
 
         <ImageButton
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:background="@null"
-            app:tint="#000000"
+            app:srcCompat="@android:drawable/ic_menu_save"
 
-            app:srcCompat="@android:drawable/ic_menu_save" />
+            app:tint="#000000" />
 
         <ImageButton
             android:id="@+id/clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:background="@null"
-            app:tint="#000000"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="#000000" />
 
         <Button
-            app:id="@+id/aplus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_width="66dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="A+" />
+            android:text="A+"
+            app:id="@+id/aplus" />
 
         <Button
             android:id="@+id/aminus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_width="66dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:text="A-" />
 
         <Button
             android:id="@+id/bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:text="B" />
+
         <Button
             android:id="@+id/italic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
-            android:text="A-" />
+            android:text="I" />
+
         <Button
             android:id="@+id/bold_and_italic"
             android:layout_width="wrap_content"
@@ -137,8 +139,6 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:text="BI" />
-
-
 
 
         <Spinner
@@ -168,8 +168,6 @@
             android:paddingEnd="20dp"
             android:visibility="gone"
             tools:visibility="gone" />
-
-        
 
 
     </com.google.android.material.appbar.MaterialToolbar>
