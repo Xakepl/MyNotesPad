@@ -100,46 +100,67 @@
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
             app:tint="#000000" />
 
-        <Button
-            android:layout_width="66dp"
+
+        <ImageButton
+            android:id="@+id/sizeminus"
+            android:layout_width="32dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="A+"
-            app:id="@+id/aplus" />
+            android:background="@null"
+            android:paddingStart="2dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/aminus"
+            app:tint="#264942" />
 
-        <Button
-            android:id="@+id/aminus"
-            android:layout_width="66dp"
+        <ImageButton
+            android:id="@+id/sizeplus"
+            android:layout_width="32dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="A-" />
+            android:background="@null"
+            android:paddingStart="2dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/aplus"
+            app:tint="#264942" />
 
-        <Button
+        <ImageButton
             android:id="@+id/bold"
-            android:layout_width="65dp"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:paddingTop="2.5dp"
+            android:paddingBottom="2dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/bold"
+            app:tint="#264942" />
+
+        <ImageButton
+            android:id="@+id/italic"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:paddingTop="2.5dp"
+            android:paddingBottom="2dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/italic"
+            app:tint="#264942" />
+
+        <ImageButton
+            android:id="@+id/boldanditalic"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="B" />
-
-        <Button
-            android:id="@+id/italic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:text="I" />
-
-        <Button
-            android:id="@+id/bold_and_italic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:text="BI" />
-
+            android:background="@null"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/boldanditalic"
+            app:tint="#264942" />
 
         <Spinner
             android:id="@+id/font_size"
