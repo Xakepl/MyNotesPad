@@ -91,11 +91,8 @@ public class editor extends AppCompatActivity implements Serializable {
             }
         }
 
-        ed = findViewById(R.id.editorL);
-
-        ed.setOnTouchListener((v, event) -> {
+       findViewById(R.id.editorL).setOnClickListener( v -> {
             clickLayout = true;
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
 //                Log.e("CLICKCANCEL ", "" + ed.callOnClick());
                 View focusedView = getCurrentFocus();
@@ -105,9 +102,8 @@ public class editor extends AppCompatActivity implements Serializable {
                     focusedView.clearFocus();
                     clickLayout = false;
                 }
-            }
-            return false;
         });
+
         title.setTextSize(48);
         title.setTypeface(null, Typeface.BOLD);
 
