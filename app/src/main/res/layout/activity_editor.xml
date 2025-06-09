@@ -102,6 +102,7 @@
             android:background="#978989"
             android:backgroundTint="#5DB6A5"
             android:entries="@array/FontSize"
+            android:gravity="center"
             android:paddingEnd="10dp" />
 
         <Spinner

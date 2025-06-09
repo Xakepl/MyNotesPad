@@ -13,9 +13,13 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.StyleSpan;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -45,9 +49,7 @@ public class editor extends AppCompatActivity implements Serializable {
     String strText;
     File file;
     Spinner FSspinner;
-    LinearLayout ed;
     Spinner FStyleSpinner;
-    boolean clickTitle;
     boolean clickText;
     boolean clickLayout;
     int sizeText;
@@ -57,10 +59,11 @@ public class editor extends AppCompatActivity implements Serializable {
     protected void onStart() {
         super.onStart();
     }
-//TODO html разметка
-    //TODO просмотреть какие тextView принимают такой формат
+    //TODO Поработать с сохранением спанов
+    //TODO Добавить возможность изменение цвета текста
+    //
+
     @SuppressLint("ClickableViewAccessibility")
-//    @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,13 +94,8 @@ public class editor extends AppCompatActivity implements Serializable {
             }
         }
 
-        ed = findViewById(R.id.editorL);
-
-        ed.setOnTouchListener((v, event) -> {
+        findViewById(R.id.editorL).setOnClickListener( v -> {
             clickLayout = true;
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-//                Log.e("CLICKCANCEL ", "" + ed.callOnClick());
                 View focusedView = getCurrentFocus();
                 if (focusedView != null) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -105,120 +103,78 @@ public class editor extends AppCompatActivity implements Serializable {
                     focusedView.clearFocus();
                     clickLayout = false;
                 }
-            }
-            return false;
         });
+
         title.setTextSize(48);
         title.setTypeface(null, Typeface.BOLD);
 
-        text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                Spannable spannable = new SpannableString(s);
-                if (text.getSelectionEnd() != text.getSelectionStart()){
-                    FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        FSspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             switch (FSspinner.getSelectedItem().toString()) {
-                                case "8":
-                                    sizeText = 8;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "9":
-                                    sizeText = 9;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "10":
-                                    sizeText = 10;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "11":
-                                    sizeText = 11;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "12":
-                                    sizeText = 12;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "14":
-                                    sizeText = 14;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "16":
-                                    sizeText = 16;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "18":
-                                    sizeText = 18;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "20":
-                                    sizeText = 20;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "22":
-                                    sizeText = 22;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "24":
-                                    sizeText = 24;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "26":
-                                    sizeText = 26;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "28":
-                                    sizeText = 28;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "36":
-                                    sizeText = 36;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
-                                case "48":
-                                    sizeText = 48;
-                                    spannable.setSpan(new AbsoluteSizeSpan(sizeText), text.getSelectionStart(),
-                                            text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;
+//                                case "8": sizeText = 8; text.setTextSize(sizeText); break;
+//                                case "9": sizeText = 9; text.setTextSize(sizeText); break;
+//                                case "10": sizeText = 10; text.setTextSize(sizeText); break;
+//                                case "11": sizeText = 11; text.setTextSize(sizeText); break;
+//                                case "12": sizeText = 12; text.setTextSize(sizeText); break;
+//                                case "14": sizeText = 14; text.setTextSize(sizeText); break;
+//                                case "16": sizeText = 16; text.setTextSize(sizeText); break;
+//                                case "18": sizeText = 18; text.setTextSize(sizeText); break;
+//                                case "20": sizeText = 20; text.setTextSize(sizeText); break;
+//                                case "22": sizeText = 22; text.setTextSize(sizeText); break;
+//                                case "24": sizeText = 24; text.setTextSize(sizeText); break;
+//                                case "26": sizeText = 26; text.setTextSize(sizeText); break;
+//                                case "28": sizeText = 28; text.setTextSize(sizeText); break;
+//                                case "36": sizeText = 36; text.setTextSize(sizeText); break;
+//                                case "48": sizeText = 48; text.setTextSize(sizeText); break;
+
+
+                                case "8": sizeText = 8; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "9": sizeText = 9; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "10": sizeText = 10; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "11": sizeText = 11; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "12": sizeText = 12; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "14": sizeText = 14; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "16": sizeText = 16; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "18": sizeText = 18; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "20": sizeText = 20; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "22": sizeText = 22; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "24": sizeText = 24; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "26": sizeText = 26; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "28": sizeText = 28; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "36": sizeText = 36; applySize(new AbsoluteSizeSpan(sizeText)); break;
+                                case "48": sizeText = 48; applySize(new AbsoluteSizeSpan(sizeText)); break;
                             }
                         }
-
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-                        }
+                        public void onNothingSelected(AdapterView<?> parent) {}
                     });
                     FStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
                                 styleText = 0;
-                            spannable.setSpan(new StyleSpan(styleText), text.getSelectionStart(),
-                                    text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+//                                text.setTypeface(null, styleText);
+                                applyStyle(new StyleSpan(styleText));
+
                             } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
                                 styleText = 1;
-                                spannable.setSpan(new StyleSpan(styleText), text.getSelectionStart(),
-                                        text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+                                applyStyle(new StyleSpan(styleText));
+                                //text.setTypeface(null, styleText);
                             } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
                                 styleText = 2;
-                                spannable.setSpan(new StyleSpan(styleText), text.getSelectionStart(),
-                                        text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+                                applyStyle(new StyleSpan(styleText));
+//                                text.setTypeface(null, styleText);
                             } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
                                 styleText = 3;
-                                spannable.setSpan(new StyleSpan(styleText), text.getSelectionStart(),
-                                        text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+                                applyStyle(new StyleSpan(styleText));
+//                                text.setTypeface(null, styleText);
                             }
                         }
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {}
                     });
-                text.setText(spannable);
-                }
-            }
-        });
     }
 
     void openAndEdit() throws FileNotFoundException {
@@ -257,12 +213,6 @@ public class editor extends AppCompatActivity implements Serializable {
         seditor.putInt("TextStyle", styleText);
         seditor.apply();
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-//            Log.e("TitleSSave", "" + title.getTypeface().getSystemFontFamilyName());
-//        }
-//        else
-//            Log.e("FFF0", "error");
-////        Log.e("TextSSave",  "" + pxToSp(text.getTextSize()));
 
         file = (File) getIntent().getSerializableExtra("FILE");
         strTitle = title.getText().toString();
@@ -283,8 +233,7 @@ public class editor extends AppCompatActivity implements Serializable {
     }
 
 
-//TODO СТИЛИ ТЕКСТА, КУРСИВ ЖИРНЫЙ ПОДЧЁРКНУТЫЙ И ЗАЧЁРКНУТЫЙ
-    //TODO ЧАТ БОТ ИИ
+//TODO ЧАТ БОТ ИИ?
 //TODO темы для блокнота
     void clear(){
         title.setText("");
@@ -296,12 +245,38 @@ public class editor extends AppCompatActivity implements Serializable {
         return px / getResources().getDisplayMetrics().scaledDensity;
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
         save();
     }
+
+    void applyStyle(StyleSpan span){
+        text.getSelectionEnd();
+        if (text.getSelectionStart() == text.getSelectionEnd())
+            return;
+
+        SpannableStringBuilder spannable = new SpannableStringBuilder(text.getText());
+        spannable.setSpan( span,text.getSelectionStart(),
+                text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        text.setText(spannable);
+        text.setSelection(text.getSelectionStart(), text.getSelectionEnd()); // Восстанавливаем выделение
+    }
+
+    void applySize(AbsoluteSizeSpan span){
+        text.getSelectionEnd();
+        if (text.getSelectionStart() == text.getSelectionEnd())
+            return;
+
+        SpannableStringBuilder spannable = new SpannableStringBuilder(text.getText());
+        spannable.setSpan( span, text.getSelectionStart(),
+                text.getSelectionEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        text.setText(spannable);
+        text.setSelection(text.getSelectionStart(), text.getSelectionEnd()); // Восстанавливаем выделение
+    }
+
     //https://clck.ru/3LbU9c
     //смена шрифтов
 }
