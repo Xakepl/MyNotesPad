@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -41,24 +42,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ListView mlistView;
     enum Status {OPENFILEANDEDIT, CREATNEW}
     SharedPreferences t;
-//    String[] ThemesName = {"Red", "Orange", "Yellow", "Green", "LtBlue", "Blue", "Purple", "Pink", "Gray", "Choco Loco"};
-//    enum themes {RED, ORNAGE, YELLOW, GREEN, LTBLUE, BLUE, PURPLR, PINK, GRAY, CHOCOLOCO};
-
-//    HashMap<String, Integer> themes = new HashMap<String, Integer>(){{
-//        put("Red", Color.parseColor("#db6456"));
-//        put("Orange", Color.parseColor("#ff964f"));
-//        put("Yellow", Color.parseColor("#fffd74"));
-//        put("Green", Color.parseColor("#b0ff9d"));
-//        put("LtBlue", Color.parseColor("#a2bffe"));
-//        put("Blue", Color.parseColor("#19789c"));
-//        put("Purple", Color.parseColor("#b19cd9"));
-//        put("Pink", Color.parseColor("#dea5a4"));
-//        put("Gray", Color.parseColor("#a1a18c"));
-//        put("Choco Loco", Color.parseColor("#7d5f53"));
-//    }};
+    Themes.applyTheme(this);
+    setupThemeSwitcher();
     Status def = Status.CREATNEW; //по дефолт
-//    int thm;
-//    ImageButton theme;
 
 
     @Override
@@ -166,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //            dialog.show();
 //
 //        });
+
     }
 
     @Override

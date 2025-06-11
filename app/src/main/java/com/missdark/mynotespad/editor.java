@@ -136,19 +136,13 @@ public class editor extends AppCompatActivity implements Serializable {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
-                                styleText = 0;
-                                applyStyle(new StyleSpan(styleText));
-
-                            } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
-                                styleText = 1;
-                                applyStyle(new StyleSpan(styleText));
-                            } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
-                                styleText = 2;
-                                applyStyle(new StyleSpan(styleText));
-                            } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
-                                styleText = 3;
-                                applyStyle(new StyleSpan(styleText));
-                            }
+                                styleText = 0; applyStyle(new StyleSpan(styleText));}
+                            else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
+                                styleText = 1; applyStyle(new StyleSpan(styleText));}
+                            else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
+                                styleText = 2; applyStyle(new StyleSpan(styleText));}
+                            else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
+                                styleText = 3; applyStyle(new StyleSpan(styleText)); }
                         }
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {}
@@ -184,8 +178,7 @@ public class editor extends AppCompatActivity implements Serializable {
         } catch (IOException e) {
         Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show();
         e.printStackTrace();
-        }
-        text.setText(restoredSpannable);
+        } text.setText(restoredSpannable);
     }
 
     void save(){
@@ -208,8 +201,8 @@ public class editor extends AppCompatActivity implements Serializable {
         }
         try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(ftext.getBytes());
-            Toast.makeText(this, "Файл " + file.getName() + " сохранён: " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
+            Toast.makeText(this, "Файл " + file.getName() + " сохранён: " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();}
+        catch (IOException e) {
             Toast.makeText(this, "Ошибка сохранения: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
