@@ -1,5 +1,7 @@
 package com.missdark.mynotespad;
 
+import static android.widget.TextView.BufferType.SPANNABLE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +10,10 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.StyleSpan;
@@ -50,10 +54,10 @@ public class editor extends AppCompatActivity implements Serializable {
     File file;
     Spinner FSspinner;
     Spinner FStyleSpinner;
-    boolean clickText;
-    boolean clickLayout;
     int sizeText;
     int styleText;
+    String htmlText;
+    Object[] allSpans;
 
     @Override
     protected void onStart() {
@@ -61,7 +65,6 @@ public class editor extends AppCompatActivity implements Serializable {
     }
     //TODO Поработать с сохранением спанов
     //TODO Добавить возможность изменение цвета текста
-    //
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -76,8 +79,6 @@ public class editor extends AppCompatActivity implements Serializable {
         clear = findViewById(R.id.clear);
         FSspinner = findViewById(R.id.font_size);
         FStyleSpinner = findViewById(R.id.style);
-        clickText = false;
-        clickLayout = false;
 
         back.setOnClickListener(v -> {
             Intent i = new Intent(editor.this, MainActivity.class);
@@ -95,13 +96,11 @@ public class editor extends AppCompatActivity implements Serializable {
         }
 
         findViewById(R.id.editorL).setOnClickListener( v -> {
-            clickLayout = true;
                 View focusedView = getCurrentFocus();
                 if (focusedView != null) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
                     focusedView.clearFocus();
-                    clickLayout = false;
                 }
         });
 
@@ -113,23 +112,6 @@ public class editor extends AppCompatActivity implements Serializable {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             switch (FSspinner.getSelectedItem().toString()) {
-//                                case "8": sizeText = 8; text.setTextSize(sizeText); break;
-//                                case "9": sizeText = 9; text.setTextSize(sizeText); break;
-//                                case "10": sizeText = 10; text.setTextSize(sizeText); break;
-//                                case "11": sizeText = 11; text.setTextSize(sizeText); break;
-//                                case "12": sizeText = 12; text.setTextSize(sizeText); break;
-//                                case "14": sizeText = 14; text.setTextSize(sizeText); break;
-//                                case "16": sizeText = 16; text.setTextSize(sizeText); break;
-//                                case "18": sizeText = 18; text.setTextSize(sizeText); break;
-//                                case "20": sizeText = 20; text.setTextSize(sizeText); break;
-//                                case "22": sizeText = 22; text.setTextSize(sizeText); break;
-//                                case "24": sizeText = 24; text.setTextSize(sizeText); break;
-//                                case "26": sizeText = 26; text.setTextSize(sizeText); break;
-//                                case "28": sizeText = 28; text.setTextSize(sizeText); break;
-//                                case "36": sizeText = 36; text.setTextSize(sizeText); break;
-//                                case "48": sizeText = 48; text.setTextSize(sizeText); break;
-
-
                                 case "8": sizeText = 8; applySize(new AbsoluteSizeSpan(sizeText)); break;
                                 case "9": sizeText = 9; applySize(new AbsoluteSizeSpan(sizeText)); break;
                                 case "10": sizeText = 10; applySize(new AbsoluteSizeSpan(sizeText)); break;
@@ -155,21 +137,17 @@ public class editor extends AppCompatActivity implements Serializable {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if (FStyleSpinner.getSelectedItem().toString().equals("Обычный")) {
                                 styleText = 0;
-//                                text.setTypeface(null, styleText);
                                 applyStyle(new StyleSpan(styleText));
 
                             } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный")) {
                                 styleText = 1;
                                 applyStyle(new StyleSpan(styleText));
-                                //text.setTypeface(null, styleText);
                             } else if (FStyleSpinner.getSelectedItem().toString().equals("Курсив")) {
                                 styleText = 2;
                                 applyStyle(new StyleSpan(styleText));
-//                                text.setTypeface(null, styleText);
                             } else if (FStyleSpinner.getSelectedItem().toString().equals("Жирный курсив")) {
                                 styleText = 3;
                                 applyStyle(new StyleSpan(styleText));
-//                                text.setTypeface(null, styleText);
                             }
                         }
                         @Override
@@ -182,6 +160,9 @@ public class editor extends AppCompatActivity implements Serializable {
         sharedPreferences = getPreferences(MODE_PRIVATE);
         text.setTextSize(sharedPreferences.getFloat("TextSize", pxToSp(text.getTextSize())));
         text.setTypeface(text.getTypeface(), sharedPreferences.getInt("TextStyle", styleText));
+        String savedHtml = sharedPreferences.getString("FormatedText", htmlText);
+        Spanned spannedText = Html.fromHtml(savedHtml, Html.FROM_HTML_MODE_LEGACY);
+        SpannableStringBuilder restoredSpannable = new SpannableStringBuilder(spannedText);
 
         Log.e("CREATETF", "" + title.getTypeface().getStyle());
         try {
@@ -204,6 +185,7 @@ public class editor extends AppCompatActivity implements Serializable {
         Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show();
         e.printStackTrace();
         }
+        text.setText(restoredSpannable);
     }
 
     void save(){
@@ -211,6 +193,7 @@ public class editor extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor seditor = sharedPreferences.edit();
         seditor.putFloat("TextSize", pxToSp(text.getTextSize()));
         seditor.putInt("TextStyle", styleText);
+        seditor.putString("FormatedText", htmlText);
         seditor.apply();
 
 
@@ -236,6 +219,8 @@ public class editor extends AppCompatActivity implements Serializable {
 //TODO ЧАТ БОТ ИИ?
 //TODO темы для блокнота
     void clear(){
+        //Удаление спанов
+
         title.setText("");
         text.setText("");
     }
@@ -262,6 +247,7 @@ public class editor extends AppCompatActivity implements Serializable {
 
         text.setText(spannable);
         text.setSelection(text.getSelectionStart(), text.getSelectionEnd()); // Восстанавливаем выделение
+        htmlText = Html.toHtml(spannable);
     }
 
     void applySize(AbsoluteSizeSpan span){
